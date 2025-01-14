@@ -22,18 +22,16 @@ class Lesson extends Model
         'order',
         'is_free',
         'is_published',
-        'resources',
-        'attachments',
     ];
 
     protected $casts = [
         'is_free' => 'boolean',
         'is_published' => 'boolean',
-        'resources' => 'array',
-        'attachments' => 'array',
-        'order' => 'integer',
     ];
 
+    /**
+     * Get the course that owns the lesson.
+     */
     public function course()
     {
         return $this->belongsTo(Course::class);
