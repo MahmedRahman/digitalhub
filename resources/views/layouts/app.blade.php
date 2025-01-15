@@ -223,8 +223,6 @@
                 </li>
              
                 @if(auth()->user()->type === 'admin')
-
-
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('admin.hero-sections.*') ? 'active' : '' }}" 
                        href="{{ route('admin.hero-sections.index') }}">
@@ -232,6 +230,21 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="{{ route('admin.livecourses.index') }}" 
+                       class="nav-link {{ request()->routeIs('admin.livecourses.*') ? 'active' : '' }}">
+                        <i class="fas fa-video"></i>
+                        <span>إدارة الدورات المباشرة</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.live-course-rounds.index') }}" 
+                       class="nav-link {{ request()->routeIs('admin.live-course-rounds.*') ? 'active' : '' }}">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>جولات الدورات المباشرة</span>
+                    </a>
+                </li>
 
                     <div class="nav-category">إدارة المحتوى</div>
 

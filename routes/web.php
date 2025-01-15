@@ -18,6 +18,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseEnrollmentController; 
 use App\Http\Controllers\Admin\ApprovedCoursesController;
 use App\Http\Controllers\Admin\HeroSectionController;
+use App\Http\Controllers\Admin\LiveCourseController;
+use App\Http\Controllers\Admin\LiveCourseRoundController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -91,6 +93,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // مسارات الكورسات المعتمدة
         Route::get('/approved-courses', [ApprovedCoursesController::class, 'index'])->name('approved-courses.index');
+
+        // Live Courses Management
+        Route::resource('livecourses', LiveCourseController::class);
+
+        // Live Course Rounds Management
+        Route::resource('live-course-rounds', LiveCourseRoundController::class);
 
         // Hero Sections Routes
         Route::resource('hero-sections', \App\Http\Controllers\Admin\HeroSectionController::class);
