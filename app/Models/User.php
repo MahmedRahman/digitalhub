@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Course;
 use App\Models\Enrollment;
+use App\Models\RoundEnrollment;
+use App\Models\StudentPayment;
 
 class User extends Authenticatable
 {
@@ -24,7 +26,7 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
-        'role',
+        'type',
         'profile_photo_path'
     ];
 
@@ -64,6 +66,29 @@ class User extends Authenticatable
         return $this->belongsToMany(Course::class, 'enrollments')
                     ->withTimestamps()
                     ->withPivot('status', 'progress', 'completed_at');
+    }
+
+    public function roundEnrollments()
+    {
+        return $this->hasMany(RoundEnrollment::class);
+    }
+
+    /**
+     * علاقة مع المدفوعات
+     */
+    public function payments()
+    {
+        return $this->hasMany(StudentPayment::class);
+    }
+
+    /**
+     * علاقة مع الجولات التي سجل فيها الطالب
+     */
+    public function rounds()
+    {
+        return $this->belongsToMany(LiveCourseRound::class, 'live_course_round_student')
+                    ->withPivot('payment_status', 'total_amount', 'paid_amount', 'remaining_amount', 'payment_notes')
+                    ->withTimestamps();
     }
 
     public function isAdmin()

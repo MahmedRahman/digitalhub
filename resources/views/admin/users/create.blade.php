@@ -9,6 +9,12 @@
                     <h2 class="fw-bold mb-0">إضافة مستخدم جديد</h2>
                 </div>
 
+                @if(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
                         <form method="POST" action="{{ route('admin.users.store') }}">
@@ -57,7 +63,8 @@
                                            name="phone" 
                                            class="form-control @error('phone') is-invalid @enderror" 
                                            value="{{ old('phone') }}" 
-                                           required />
+                                           required 
+                                           dir="ltr" />
                                     @error('phone')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -73,7 +80,8 @@
                                             class="form-select @error('type') is-invalid @enderror" 
                                             required>
                                         <option value="">اختر نوع المستخدم</option>
-                                        <option value="user" {{ old('type') === 'user' ? 'selected' : '' }}>مستخدم عادي</option>
+                                        <option value="student" {{ old('type') === 'student' ? 'selected' : '' }}>طالب</option>
+                                        <option value="instructor" {{ old('type') === 'instructor' ? 'selected' : '' }}>محاضر</option>
                                         <option value="admin" {{ old('type') === 'admin' ? 'selected' : '' }}>مدير</option>
                                     </select>
                                     @error('type')
@@ -92,8 +100,11 @@
                                                name="password" 
                                                class="form-control @error('password') is-invalid @enderror" 
                                                required />
-                                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password')">
+                                        <button type="button" class="btn btn-outline-secondary" onclick="togglePassword('password')">
                                             <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary" onclick="generatePassword()">
+                                            <i class="fas fa-key"></i> توليد
                                         </button>
                                     </div>
                                     @error('password')
@@ -101,8 +112,8 @@
                                     @enderror
                                 </div>
 
-                                <!-- Confirm Password -->
-                                <div class="col-md-6 mb-4">
+                                <!-- Password Confirmation -->
+                                <div class="col-md-6 mb-3">
                                     <label for="password_confirmation" class="form-label">
                                         <i class="fas fa-lock me-2 text-primary"></i>تأكيد كلمة المرور
                                     </label>
@@ -112,7 +123,7 @@
                                                name="password_confirmation" 
                                                class="form-control" 
                                                required />
-                                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password_confirmation')">
+                                        <button type="button" class="btn btn-outline-secondary" onclick="togglePassword('password_confirmation')">
                                             <i class="fas fa-eye"></i>
                                         </button>
                                     </div>
@@ -134,12 +145,59 @@
     <script>
         function togglePassword(inputId) {
             const input = document.getElementById(inputId);
-            const type = input.type === 'password' ? 'text' : 'password';
-            input.type = type;
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        }
+
+        function generatePassword() {
+            const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+            const numbers = '0123456789';
+            const symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?';
             
-            const icon = event.currentTarget.querySelector('i');
-            icon.classList.toggle('fa-eye');
-            icon.classList.toggle('fa-eye-slash');
+            const length = 12;
+            let password = '';
+            
+            password += uppercase[Math.floor(Math.random() * uppercase.length)];
+            password += lowercase[Math.floor(Math.random() * lowercase.length)];
+            password += numbers[Math.floor(Math.random() * numbers.length)];
+            password += symbols[Math.floor(Math.random() * symbols.length)];
+            
+            const allChars = uppercase + lowercase + numbers + symbols;
+            for (let i = password.length; i < length; i++) {
+                password += allChars[Math.floor(Math.random() * allChars.length)];
+            }
+            
+            password = password.split('').sort(() => Math.random() - 0.5).join('');
+            
+            document.getElementById('password').value = password;
+            document.getElementById('password_confirmation').value = password;
+            
+            document.getElementById('password').type = 'text';
+            document.getElementById('password_confirmation').type = 'text';
+            
+            showPasswordAlert(password);
+        }
+
+        function showPasswordAlert(password) {
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success alert-dismissible fade show mt-3';
+            alert.innerHTML = `
+                <strong>تم توليد كلمة مرور جديدة!</strong>
+                <br>
+                <span class="text-monospace">${password}</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            
+            const form = document.querySelector('form');
+            form.insertBefore(alert, form.firstChild);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
         }
     </script>
 </x-app-layout>

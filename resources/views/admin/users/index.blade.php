@@ -17,13 +17,23 @@
         <div class="card shadow-sm mb-4">
             <div class="card-body">
                 <form action="{{ route('admin.users.index') }}" method="GET" class="row g-3">
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                         <div class="input-group">
                             <input type="text" name="search" class="form-control" placeholder="ابحث عن طريق الاسم، البريد الإلكتروني، أو رقم الهاتف..." value="{{ request('search') }}">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-search me-1"></i>بحث
-                            </button>
                         </div>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="type" class="form-select">
+                            <option value="">جميع أنواع المستخدمين</option>
+                            <option value="student" {{ request('type') === 'student' ? 'selected' : '' }}>طالب</option>
+                            <option value="instructor" {{ request('type') === 'instructor' ? 'selected' : '' }}>محاضر</option>
+                            <option value="admin" {{ request('type') === 'admin' ? 'selected' : '' }}>مدير</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary w-100" type="submit">
+                            <i class="fas fa-search me-1"></i>بحث
+                        </button>
                     </div>
                 </form>
             </div>
@@ -33,7 +43,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
-                        <thead>
+                        <thead class="table-light">
                             <tr>
                                 <th>#</th>
                                 <th>الاسم</th>
@@ -56,25 +66,33 @@
                                             {{ $user->name }}
                                         </div>
                                     </td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->phone }}</td>
+                                    <td dir="ltr">{{ $user->email }}</td>
+                                    <td dir="ltr">{{ $user->phone }}</td>
                                     <td>
-                                        @if($user->type === 'admin')
-                                            <span class="badge bg-primary">مدير</span>
-                                        @else
-                                            <span class="badge bg-secondary">مستخدم</span>
-                                        @endif
+                                        @switch($user->type)
+                                            @case('admin')
+                                                <span class="badge bg-danger">مدير</span>
+                                                @break
+                                            @case('instructor')
+                                                <span class="badge bg-success">محاضر</span>
+                                                @break
+                                            @default
+                                                <span class="badge bg-info">طالب</span>
+                                        @endswitch
                                     </td>
                                     <td>{{ $user->created_at->format('Y-m-d') }}</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-primary">
+                                            <a href="{{ route('admin.users.edit', $user->id) }}" 
+                                               class="btn btn-sm btn-primary"
+                                               title="تعديل">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <button type="button" 
                                                     class="btn btn-sm btn-danger" 
                                                     data-bs-toggle="modal" 
-                                                    data-bs-target="#deleteModal{{ $user->id }}">
+                                                    data-bs-target="#deleteModal{{ $user->id }}"
+                                                    title="حذف">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </div>
@@ -88,14 +106,15 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p>هل أنت متأكد من حذف المستخدم "{{ $user->name }}"؟</p>
+                                                        <p>هل أنت متأكد من حذف المستخدم <strong>{{ $user->name }}</strong>؟</p>
+                                                        <p class="text-danger mb-0"><i class="fas fa-exclamation-triangle me-2"></i>هذا الإجراء لا يمكن التراجع عنه.</p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                                                        <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="d-inline">
+                                                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger">حذف</button>
+                                                            <button type="submit" class="btn btn-danger">تأكيد الحذف</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -105,9 +124,11 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center py-4 text-muted">
-                                        <i class="fas fa-users fa-2x mb-3"></i>
-                                        <p class="mb-0">لا يوجد مستخدمين حالياً</p>
+                                    <td colspan="7" class="text-center py-4">
+                                        <div class="text-muted">
+                                            <i class="fas fa-search fa-2x mb-3"></i>
+                                            <p class="mb-0">لم يتم العثور على أي مستخدمين</p>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforelse

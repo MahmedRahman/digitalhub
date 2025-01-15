@@ -43,15 +43,18 @@ class LiveCourseRoundController extends Controller
             ->with('success', 'تم إضافة الجولة بنجاح');
     }
 
-    public function edit(LiveCourseRound $livecoursesround)
+    public function edit($id)
     {
+        $liveCourseRound = LiveCourseRound::findOrFail($id);
         $livecourses = LiveCourse::orderBy('name')->get(['id', 'name']);
         $instructors = Instructor::orderBy('name')->get(['id', 'name', 'specialization_id']);
-        return view('admin.live-course-rounds.edit', compact('livecoursesround', 'livecourses', 'instructors'));
+        return view('admin.live-course-rounds.edit', compact('liveCourseRound', 'livecourses', 'instructors'));
     }
 
-    public function update(Request $request, LiveCourseRound $livecoursesround)
+    public function update(Request $request, $id)
     {
+        $liveCourseRound = LiveCourseRound::findOrFail($id);
+        
         $request->validate([
             'livecourse_id' => 'required|exists:livecourses,id',
             'instructor_id' => 'required|exists:instructors,id',
@@ -64,7 +67,7 @@ class LiveCourseRoundController extends Controller
             'status' => 'required|in:upcoming,ongoing,completed'
         ]);
 
-        $livecoursesround->update($request->all());
+        $liveCourseRound->update($request->all());
 
         return redirect()->route('admin.live-course-rounds.index')
             ->with('success', 'تم تحديث الجولة بنجاح');

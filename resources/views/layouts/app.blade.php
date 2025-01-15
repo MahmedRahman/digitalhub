@@ -230,6 +230,9 @@
                     </a>
                 </li>
 
+
+                <div class="nav-category">إدارة الدورات المباشرة</div>
+
                 <li class="nav-item">
                     <a href="{{ route('admin.livecourses.index') }}" 
                        class="nav-link {{ request()->routeIs('admin.livecourses.*') ? 'active' : '' }}">
@@ -245,6 +248,8 @@
                         <span>جولات الدورات المباشرة</span>
                     </a>
                 </li>
+
+              
 
                     <div class="nav-category">إدارة المحتوى</div>
 

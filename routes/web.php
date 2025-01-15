@@ -20,6 +20,9 @@ use App\Http\Controllers\Admin\ApprovedCoursesController;
 use App\Http\Controllers\Admin\HeroSectionController;
 use App\Http\Controllers\Admin\LiveCourseController;
 use App\Http\Controllers\Admin\LiveCourseRoundController;
+use App\Http\Controllers\Admin\LiveCourseRoundStudentController;
+use App\Http\Controllers\Admin\RoundEnrollmentController;
+use App\Http\Controllers\Admin\StudentPaymentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -63,7 +66,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // Admin Routes
-    Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('dashboard');
         
         // Admin Category Management
@@ -100,8 +103,30 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Live Course Rounds Management
         Route::resource('live-course-rounds', LiveCourseRoundController::class);
 
+        // Round Enrollment Management
+        Route::get('round-enrollments/{id}/invoice', [RoundEnrollmentController::class, 'invoice'])
+            ->name('round-enrollments.invoice');
+        Route::resource('round-enrollments', RoundEnrollmentController::class);
+        Route::patch('round-enrollments/{enrollment}/update-status', [RoundEnrollmentController::class, 'updateStatus'])
+            ->name('round-enrollments.update-status');
+        Route::post('round-enrollments/{enrollment}/add-payment', [RoundEnrollmentController::class, 'addPayment'])
+            ->name('round-enrollments.add-payment');
+
         // Hero Sections Routes
-        Route::resource('hero-sections', \App\Http\Controllers\Admin\HeroSectionController::class);
+        Route::resource('hero-sections', HeroSectionController::class);
+
+        // Live Course Round Students Routes
+        Route::prefix('live-course-rounds')->name('live-course-rounds.')->group(function () {
+            Route::get('{round}/students', [LiveCourseRoundStudentController::class, 'index'])->name('students.index');
+            Route::post('{round}/students', [LiveCourseRoundStudentController::class, 'store'])->name('students.store');
+            Route::delete('{round}/students/{student}', [LiveCourseRoundStudentController::class, 'remove'])->name('students.remove');
+            Route::post('{round}/students/{student}/update-payment', [LiveCourseRoundStudentController::class, 'updatePayment'])->name('students.update-payment');
+            
+            // Payment Routes
+            Route::post('{round}/students/{student}/payments', [StudentPaymentController::class, 'store'])->name('students.payments.store');
+            Route::get('{round}/students/{student}/payments/{payment}/receipt', [StudentPaymentController::class, 'receipt'])->name('students.payments.receipt');
+            Route::get('payments/verify/{receipt_number}', [StudentPaymentController::class, 'verify'])->name('students.payments.verify');
+        });
     });
 });
 

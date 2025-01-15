@@ -33,4 +33,22 @@ class LiveCourseRound extends Model
     {
         return $this->belongsTo(Instructor::class);
     }
+
+    public function enrollments()
+    {
+        return $this->hasMany(RoundEnrollment::class, 'live_course_round_id');
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'live_course_round_student')
+                    ->where('type', 'student')
+                    ->withPivot('payment_status', 'created_at', 'updated_at')
+                    ->withTimestamps();
+    }
+
+    public function getStudentsCountAttribute()
+    {
+        return $this->students()->count();
+    }
 }
