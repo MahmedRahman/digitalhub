@@ -65,4 +65,13 @@ class LiveCourseController extends Controller
         return redirect()->route('admin.livecourses.index')
             ->with('success', 'تم حذف الدورة المباشرة بنجاح');
     }
+
+    // New method for API endpoint
+    public function indexApi()
+    {
+        $livecourses = LiveCourse::latest()
+                                ->paginate(12);
+
+        return response()->json($livecourses);
+    }
 }

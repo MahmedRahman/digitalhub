@@ -230,7 +230,17 @@
                     </a>
                 </li>
 
+                <div class="nav-category">إدارة الذكاء الاصطناعي</div>
 
+                <li class="nav-item">
+                    <a href="{{ route('admin.ai-messages.index') }}" 
+                       class="nav-link {{ request()->routeIs('admin.ai-messages.*') ? 'active' : '' }}">
+                        <i class="fas fa-video"></i>
+                        <span>إدارة رسائل الذكاء الاصطناعي</span>
+                    </a>
+                </li>
+               
+               
                 <div class="nav-category">إدارة الدورات المباشرة</div>
 
                 <li class="nav-item">

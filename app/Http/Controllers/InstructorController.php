@@ -92,6 +92,16 @@ class InstructorController extends Controller
         return view('instructors.show', compact('instructor'));
     }
 
+    public function indexApi()
+    {
+        $instructors = Instructor::withCount('courses')
+                               ->with(['specializations'])
+                               ->orderBy('courses_count', 'desc')
+                               ->paginate(12);
+
+        return response()->json($instructors);
+    }
+
     public function edit(Instructor $instructor)
     {
         return view('admin.instructors.edit', compact('instructor'));

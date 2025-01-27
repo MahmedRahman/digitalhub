@@ -106,4 +106,15 @@ class InstructorController extends Controller
         return redirect()->route('admin.instructors.index')
             ->with('success', 'تم حذف المدرب بنجاح');
     }
+
+    // New method for API endpoint
+    public function indexApi()
+    {
+        $instructors = Instructor::with(['specialization'])
+                               ->withCount('courses')
+                               ->orderBy('courses_count', 'desc')
+                               ->paginate(12);
+
+        return response()->json($instructors);
+    }
 }

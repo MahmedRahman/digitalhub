@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\LiveCourseRoundController;
 use App\Http\Controllers\Admin\LiveCourseRoundStudentController;
 use App\Http\Controllers\Admin\RoundEnrollmentController;
 use App\Http\Controllers\Admin\StudentPaymentController;
+use App\Http\Controllers\AiMessageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -127,6 +128,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('{round}/students/{student}/payments/{payment}/receipt', [StudentPaymentController::class, 'receipt'])->name('students.payments.receipt');
             Route::get('payments/verify/{receipt_number}', [StudentPaymentController::class, 'verify'])->name('students.payments.verify');
         });
+
+        // AI Messages Admin Routes
+        Route::resource('ai-messages', AiMessageController::class)
+            ->only(['index', 'show', 'destroy']);
     });
 });
 
