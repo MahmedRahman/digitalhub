@@ -83,17 +83,17 @@
                         <div class="row g-4">
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">صورة الدورة</label>
-                                <div class="drop-zone rounded-3 bg-light p-4 text-center cursor-pointer">
-                                    <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
-                                    <p class="mb-0 text-muted small">اسحب الصورة هنا أو اضغط للاختيار</p>
-                                    <input type="file" 
-                                           class="form-control d-none @error('image') is-invalid @enderror" 
-                                           name="image" 
-                                           accept="image/*">
-                                </div>
+                                <input type="file" 
+                                       name="image" 
+                                       id="courseImage"
+                                       class="form-control @error('image') is-invalid @enderror" 
+                                       accept="image/*">
                                 @error('image')
-                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                                <div id="imagePreview" class="mt-2 d-none">
+                                    <img src="#" alt="Course Image Preview" class="img-thumbnail" style="max-height: 200px;">
+                                </div>
                             </div>
 
                             <div class="col-md-6">
@@ -139,19 +139,19 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label fw-bold">المدربين <span class="text-danger">*</span></label>
-                            <select class="form-select select2 @error('instructor_ids') is-invalid @enderror" 
-                                    name="instructor_ids[]" 
-                                    multiple 
+                            <label class="form-label fw-bold">المدرب <span class="text-danger">*</span></label>
+                            <select class="form-select @error('instructor_id') is-invalid @enderror" 
+                                    name="instructor_id" 
                                     required>
+                                <option value="">اختر المدرب</option>
                                 @foreach($instructors as $instructor)
                                     <option value="{{ $instructor->id }}" 
-                                            {{ (is_array(old('instructor_ids')) && in_array($instructor->id, old('instructor_ids'))) ? 'selected' : '' }}>
+                                            {{ old('instructor_id') == $instructor->id ? 'selected' : '' }}>
                                         {{ $instructor->name }}
                                     </option>
                                 @endforeach
                             </select>
-                            @error('instructor_ids')
+                            @error('instructor_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -321,6 +321,19 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
+        document.getElementById('courseImage').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.querySelector('img').src = e.target.result;
+                    preview.classList.remove('d-none');
+                }
+                reader.readAsDataURL(file);
+            }
+        });
     </script>
     @endpush
 </x-app-layout>

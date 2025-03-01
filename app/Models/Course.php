@@ -113,11 +113,6 @@ class Course extends Model
         }
     }
 
-    public function instructors()
-    {
-        return $this->belongsToMany(Instructor::class);
-    }
-
     /**
      * Get the lessons for the course.
      */

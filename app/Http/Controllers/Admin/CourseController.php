@@ -9,6 +9,7 @@ use App\Models\Instructor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class CourseController extends Controller
 {
@@ -46,8 +47,7 @@ class CourseController extends Controller
             'lectures_count' => 'required|integer|min:1',
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
-            'instructor_ids' => 'required|array|min:1',
-            'instructor_ids.*' => 'exists:instructors,id',
+            'instructor_id' => 'required|exists:instructors,id',
             'status' => 'required|in:draft,published',
             'requirements' => 'nullable|string',
             'what_you_will_learn' => 'nullable|string',
@@ -62,8 +62,18 @@ class CourseController extends Controller
                 ->store('courses/videos', 'public');
         }
 
+        // Generate slug from title
+        $validated['slug'] = \Str::slug($request->title);
+        
+        // Make sure the slug is unique
+        $originalSlug = $validated['slug'];
+        $counter = 1;
+        while (Course::where('slug', $validated['slug'])->exists()) {
+            $validated['slug'] = $originalSlug . '-' . $counter;
+            $counter++;
+        }
+
         $course = Course::create($validated);
-        $course->instructors()->attach($request->instructor_ids);
 
         return redirect()
             ->route('admin.courses.index')
