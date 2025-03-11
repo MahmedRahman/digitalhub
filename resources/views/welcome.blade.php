@@ -88,11 +88,25 @@
                                 <div class="row align-items-center">
                                     <div class="col">
                                         <div class="d-flex align-items-center">
-                                            <img src="{{ $course->instructor->profile_photo_url }}" 
-                                                 class="rounded-circle me-2" 
-                                                 width="30" 
-                                                 alt="{{ $course->instructor->name }}">
-                                            <small class="text-muted">{{ $course->instructor->name }}</small>
+                                            @if($course->instructor)
+                                                <img src="{{ $course->instructor->profile_photo_url }}" 
+                                                     class="rounded-circle me-2" 
+                                                     width="30" 
+                                                     alt="{{ $course->instructor->name }}">
+                                                <small class="text-muted">{{ $course->instructor->name }}</small>
+                                            @elseif($course->instructors->isNotEmpty())
+                                                <img src="{{ $course->instructors->first()->profile_photo_url }}" 
+                                                     class="rounded-circle me-2" 
+                                                     width="30" 
+                                                     alt="{{ $course->instructors->first()->name }}">
+                                                <small class="text-muted">{{ $course->instructors->first()->name }}</small>
+                                            @else
+                                                <img src="https://ui-avatars.com/api/?name=Unknown&color=7F9CF5&background=EBF4FF" 
+                                                     class="rounded-circle me-2" 
+                                                     width="30" 
+                                                     alt="Unknown Instructor">
+                                                <small class="text-muted">مدرب غير معروف</small>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-auto">
@@ -128,14 +142,14 @@
                     <div class="col-md-6 col-lg-3">
                         <div class="card h-100 border-0 shadow-sm text-center">
                             <div class="card-body">
-                                <img src="{{ $instructor->profile_photo_url }}" 
+                                <img src="{{ $instructor->profile_photo_url ?? 'https://ui-avatars.com/api/?name=Unknown&color=7F9CF5&background=EBF4FF' }}" 
                                      class="rounded-circle mb-3" 
                                      width="120" 
                                      height="120"
-                                     alt="{{ $instructor->name }}">
-                                <h5 class="card-title">{{ $instructor->name }}</h5>
-                                <p class="text-primary mb-2">{{ $instructor->title }}</p>
-                                <p class="text-muted small mb-3">{{ Str::limit($instructor->bio, 100) }}</p>
+                                     alt="{{ $instructor->name ?? 'Unknown Instructor' }}">
+                                <h5 class="card-title">{{ $instructor->name ?? 'مدرب غير معروف' }}</h5>
+                                <p class="text-primary mb-2">{{ $instructor->title ?? '' }}</p>
+                                <p class="text-muted small mb-3">{{ Str::limit($instructor->bio ?? '', 100) }}</p>
                                 <a href="{{ route('instructors.show', $instructor) }}" 
                                    class="btn btn-outline-primary">
                                     عرض الملف الشخصي

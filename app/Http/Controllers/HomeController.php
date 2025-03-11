@@ -17,7 +17,7 @@ class HomeController extends Controller
             ->orderBy('sort_order')
             ->get();
 
-        $latestCourses = Course::with(['category', 'instructor'])
+        $latestCourses = Course::with(['category', 'instructor', 'instructors'])
             ->where('status', Course::STATUS_PUBLISHED)
             ->latest()
             ->take(6)

@@ -158,7 +158,7 @@
                         @forelse($courses as $course)
                             <div class="col-md-6 col-lg-4">
                                 <div class="card h-100 border-0 shadow-sm">
-                                    <img src="{{ Storage::url($course->image) }}" 
+                                    <img src="{{ $course->image_url }}" 
                                          class="card-img-top"
                                          style="height: 200px; object-fit: cover;"
                                          alt="{{ $course->title }}">

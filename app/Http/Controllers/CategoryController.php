@@ -50,6 +50,7 @@ class CategoryController extends Controller
                         $q->select('id', 'profile_photo_path');
                     }]);
             }])
+            ->with('instructors')
             ->withCount('users as students_count')
             ->latest()
             ->paginate(9);

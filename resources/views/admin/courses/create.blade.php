@@ -1,5 +1,30 @@
 <x-app-layout>
     <div class="container-fluid py-4">
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <ul class="mb-0">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        
         <!-- Header -->
         <div class="bg-white rounded-3 shadow-sm p-4 mb-4">
             <div class="d-flex justify-content-between align-items-center">
@@ -98,17 +123,19 @@
 
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">الفيديو الترويجي</label>
-                                <div class="drop-zone rounded-3 bg-light p-4 text-center cursor-pointer">
-                                    <i class="fas fa-film fa-2x text-muted mb-2"></i>
-                                    <p class="mb-0 text-muted small">اسحب الفيديو هنا أو اضغط للاختيار</p>
-                                    <input type="file" 
-                                           class="form-control d-none @error('promotional_video') is-invalid @enderror" 
-                                           name="promotional_video" 
-                                           accept="video/*">
+                                <div class="card p-3">
+                                    <div class="mb-3">
+                                        <input type="text" 
+                                               class="form-control @error('promotional_video') is-invalid @enderror" 
+                                               name="promotional_video" 
+                                               value="{{ old('promotional_video') }}"
+                                               placeholder="ضع رابط الفيديو الخارجي">
+                                        <div class="form-text">قم بنسخ رابط الفيديو من يوتيوب أو أي مصدر خارجي</div>
+                                    </div>
+                                    @error('promotional_video')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                                @error('promotional_video')
-                                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                                @enderror
                             </div>
                         </div>
                     </div>
@@ -139,18 +166,21 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label fw-bold">المدرب <span class="text-danger">*</span></label>
-                            <select class="form-select @error('instructor_id') is-invalid @enderror" 
-                                    name="instructor_id" 
+                            <label class="form-label fw-bold">المدربين <span class="text-danger">*</span></label>
+                            <select class="form-select select2 @error('instructor_ids') is-invalid @enderror" 
+                                    name="instructor_ids[]" 
+                                    multiple 
                                     required>
-                                <option value="">اختر المدرب</option>
                                 @foreach($instructors as $instructor)
                                     <option value="{{ $instructor->id }}" 
-                                            {{ old('instructor_id') == $instructor->id ? 'selected' : '' }}>
+                                            {{ (is_array(old('instructor_ids')) && in_array($instructor->id, old('instructor_ids'))) ? 'selected' : '' }}>
                                         {{ $instructor->name }}
                                     </option>
                                 @endforeach
                             </select>
+                            @error('instructor_ids')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                             @error('instructor_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -199,8 +229,8 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label fw-bold">المستوى</label>
-                            <select class="form-select @error('level') is-invalid @enderror" name="level">
+                            <label class="form-label fw-bold">المستوى <span class="text-danger">*</span></label>
+                            <select class="form-select @error('level') is-invalid @enderror" name="level" required>
                                 <option value="beginner" {{ old('level') == 'beginner' ? 'selected' : '' }}>مبتدئ</option>
                                 <option value="intermediate" {{ old('level') == 'intermediate' ? 'selected' : '' }}>متوسط</option>
                                 <option value="advanced" {{ old('level') == 'advanced' ? 'selected' : '' }}>متقدم</option>
@@ -211,27 +241,19 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label fw-bold">اللغة</label>
-                            <select class="form-select @error('language') is-invalid @enderror" name="language">
-                                <option value="arabic" {{ old('language') == 'arabic' ? 'selected' : '' }}>العربية</option>
-                                <option value="english" {{ old('language') == 'english' ? 'selected' : '' }}>الإنجليزية</option>
-                            </select>
-                            @error('language')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="form-label fw-bold">حالة النشر</label>
+                            <label class="form-label fw-bold">حالة النشر <span class="text-danger">*</span></label>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" 
                                        type="checkbox" 
-                                       name="status" 
-                                       value="published" 
                                        id="statusSwitch" 
-                                       {{ old('status') == 'published' ? 'checked' : '' }}>
+                                       onchange="document.getElementById('statusInput').value = this.checked ? 'published' : 'draft'"
+                                       {{ old('status', 'published') == 'published' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="statusSwitch">نشر الدورة</label>
                             </div>
+                            <input type="hidden" id="statusInput" name="status" value="{{ old('status', 'published') }}">
+                            @error('status')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
@@ -252,17 +274,7 @@
 
     @push('styles')
     <style>
-        .drop-zone {
-            border: 2px dashed #dee2e6;
-            transition: all 0.3s ease;
-        }
-        .drop-zone:hover {
-            border-color: #6c757d;
-            background-color: #f8f9fa !important;
-        }
-        .cursor-pointer {
-            cursor: pointer;
-        }
+        /* Custom styles for the course creation form */
     </style>
     @endpush
 
@@ -273,54 +285,6 @@
             theme: 'bootstrap-5',
             width: '100%'
         });
-
-        // File Upload Preview
-        document.querySelectorAll('.drop-zone').forEach(zone => {
-            const input = zone.querySelector('input');
-            
-            zone.addEventListener('click', () => input.click());
-            
-            zone.addEventListener('dragover', e => {
-                e.preventDefault();
-                zone.classList.add('bg-light');
-            });
-            
-            zone.addEventListener('dragleave', () => {
-                zone.classList.remove('bg-light');
-            });
-            
-            zone.addEventListener('drop', e => {
-                e.preventDefault();
-                input.files = e.dataTransfer.files;
-                updateThumbnail(input, zone);
-            });
-            
-            input.addEventListener('change', () => {
-                updateThumbnail(input, zone);
-            });
-        });
-
-        function updateThumbnail(input, zone) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                
-                reader.onload = e => {
-                    if (input.accept.includes('image')) {
-                        zone.innerHTML = `
-                            <img src="${e.target.result}" class="img-fluid rounded mb-2" style="max-height: 150px">
-                            <p class="mb-0 text-muted small">انقر لتغيير الصورة</p>
-                        `;
-                    } else {
-                        zone.innerHTML = `
-                            <i class="fas fa-file-video fa-2x text-primary mb-2"></i>
-                            <p class="mb-0 text-muted small">${input.files[0].name}</p>
-                        `;
-                    }
-                };
-                
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
 
         document.getElementById('courseImage').addEventListener('change', function(e) {
             const file = e.target.files[0];

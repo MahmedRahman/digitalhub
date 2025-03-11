@@ -112,6 +112,7 @@
                                                 class="form-check-input" 
                                                 id="is_free" 
                                                 name="is_free" 
+                                                value="1"
                                                 {{ old('is_free', $lesson->is_free) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="is_free">درس مجاني</label>
                                         </div>
@@ -120,6 +121,7 @@
                                                 class="form-check-input" 
                                                 id="is_published" 
                                                 name="is_published" 
+                                                value="1"
                                                 {{ old('is_published', $lesson->is_published) ? 'checked' : '' }}>
                                             <label class="form-check-label" for="is_published">نشر الدرس</label>
                                         </div>

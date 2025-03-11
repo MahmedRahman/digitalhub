@@ -62,7 +62,10 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         abort_if($course->status !== 'published', 404);
-
+        
+        // Eager load relationships
+        $course->load(['category', 'instructor', 'instructors', 'lessons']);
+        
         return view('courses.show', compact('course'));
     }
 

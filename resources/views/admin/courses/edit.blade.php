@@ -261,17 +261,6 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label fw-bold">اللغة</label>
-                            <select class="form-select @error('language') is-invalid @enderror" name="language">
-                                <option value="arabic" {{ old('language', $course->language) == 'arabic' ? 'selected' : '' }}>العربية</option>
-                                <option value="english" {{ old('language', $course->language) == 'english' ? 'selected' : '' }}>الإنجليزية</option>
-                            </select>
-                            @error('language')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-4">
                             <label class="form-label fw-bold">حالة النشر</label>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" 

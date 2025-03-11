@@ -69,8 +69,8 @@ class LessonController extends Controller
             ]);
 
             // Convert checkbox values
-            $validated['is_free'] = $request->has('is_free');
-            $validated['is_published'] = $request->has('is_published');
+            $validated['is_free'] = $request->has('is_free') ? true : false;
+            $validated['is_published'] = $request->has('is_published') ? true : false;
             
             // Generate slug from title
             $validated['slug'] = Str::slug($validated['title']);
@@ -182,8 +182,8 @@ class LessonController extends Controller
             ]);
 
             // Handle boolean fields
-            $validated['is_free'] = $request->has('is_free');
-            $validated['is_published'] = $request->has('is_published');
+            $validated['is_free'] = $request->has('is_free') ? true : false;
+            $validated['is_published'] = $request->has('is_published') ? true : false;
 
             // Generate slug from title if title changed
             if ($lesson->title !== $validated['title']) {

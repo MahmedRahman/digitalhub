@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use App\Models\Instructor;
 
 class Course extends Model
 {
@@ -49,6 +50,10 @@ class Course extends Model
     protected $appends = ['image_url'];
 
     /**
+     * Set default attribute values
+     */
+ 
+    /**
      * Get available status options
      */
     public static function getStatusOptions(): array
@@ -76,6 +81,14 @@ class Course extends Model
     public function instructor()
     {
         return $this->belongsTo(Instructor::class);
+    }
+
+    /**
+     * Get the instructors for the course.
+     */
+    public function instructors()
+    {
+        return $this->belongsToMany(Instructor::class);
     }
 
     public function getImageUrlAttribute()

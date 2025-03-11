@@ -78,6 +78,14 @@
                                     <span class="small text-muted">
                                         {{ $course->instructor->name }}
                                     </span>
+                                @elseif($course->instructors->isNotEmpty())
+                                    <img src="{{ $course->instructors->first()->profile_photo_url }}" 
+                                         class="rounded-circle me-2" 
+                                         width="30" 
+                                         alt="{{ $course->instructors->first()->name }}">
+                                    <span class="small text-muted">
+                                        {{ $course->instructors->first()->name }}
+                                    </span>
                                 @else
                                     <span class="small text-muted">
                                         <i class="fas fa-user-circle me-2"></i>
