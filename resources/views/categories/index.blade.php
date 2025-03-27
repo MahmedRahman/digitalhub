@@ -23,31 +23,32 @@
         <div class="row g-4">
             @forelse($categories as $category)
                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 border-0 shadow-sm hover-card">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center mb-3">
-                                <div class="category-icon-wrapper me-3">
-                                    <i class="fas fa-{{ $category->icon ?? 'folder' }} fa-2x text-primary"></i>
+                    <div class="card h-100 border-0 shadow-sm hover-card position-relative" style="transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                        <a href="{{ route('categories.show', $category) }}" class="text-decoration-none text-dark stretched-link">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="category-icon-wrapper me-3">
+                                        <i class="fas fa-{{ $category->icon ?? 'folder' }} fa-2x text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="h5 mb-1">{{ $category->name }}</h3>
+                                        <p class="text-muted small mb-0">{{ $category->courses_count ?? 0 }} دورة</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 class="h5 mb-1">{{ $category->name }}</h3>
-                                    <p class="text-muted small mb-0">{{ $category->courses_count ?? 0 }} دورة</p>
-                                </div>
-                            </div>
-                            <p class="text-muted mb-3">{{ Str::limit($category->description, 100) }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="{{ route('categories.show', $category) }}" 
-                                   class="btn btn-outline-primary rounded-pill px-4">
-                                    عرض الدورات
-                                    <i class="fas fa-arrow-left ms-2"></i>
-                                </a>
-                                @if($category->courses_count > 0)
-                                    <span class="badge bg-success-subtle text-success rounded-pill">
-                                        {{ $category->courses_count }} دورة متاحة
+                                <p class="text-muted mb-3">{{ Str::limit($category->description, 100) }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="btn btn-outline-primary rounded-pill px-4 disabled">
+                                        عرض الدورات
+                                        <i class="fas fa-arrow-left ms-2"></i>
                                     </span>
-                                @endif
+                                    @if($category->courses_count > 0)
+                                        <span class="badge bg-success-subtle text-success rounded-pill">
+                                            {{ $category->courses_count }} دورة متاحة
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             @empty

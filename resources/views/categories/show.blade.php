@@ -43,72 +43,73 @@
         <div class="row g-4">
             @forelse($courses as $course)
                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 border-0 shadow-sm hover-card">
-                        @if($course->thumbnail)
-                            <img src="{{ asset('storage/' . $course->thumbnail) }}" 
-                                 class="card-img-top" 
-                                 alt="{{ $course->title }}"
-                                 style="height: 200px; object-fit: cover;">
-                        @else
-                            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" 
-                                 style="height: 200px;">
-                                <i class="fas fa-graduation-cap fa-3x text-muted"></i>
-                            </div>
-                        @endif
-                        <div class="card-body p-4">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="badge bg-primary-subtle text-primary">
-                                    {{ $course->level }}
-                                </span>
-                                <span class="text-muted small">
-                                    <i class="fas fa-users me-1"></i>
-                                    {{ $course->students_count }} طالب
-                                </span>
-                            </div>
-                            <h3 class="h5 mb-3">{{ $course->title }}</h3>
-                            <p class="text-muted small mb-3">
-                                {{ Str::limit($course->description, 100) }}
-                            </p>
-                            <div class="d-flex align-items-center mb-3">
-                                @if($course->instructor)
-                                    <img src="{{ $course->instructor->profile_photo_url }}" 
-                                         class="rounded-circle me-2" 
-                                         width="30" 
-                                         alt="{{ $course->instructor->name }}">
-                                    <span class="small text-muted">
-                                        {{ $course->instructor->name }}
+                    <div class="card h-100 border-0 shadow-sm hover-card position-relative" style="transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                        <a href="{{ route('courses.show', $course) }}" class="text-decoration-none text-dark stretched-link">
+                            @if($course->thumbnail)
+                                <img src="{{ asset('storage/' . $course->thumbnail) }}" 
+                                     class="card-img-top" 
+                                     alt="{{ $course->title }}"
+                                     style="height: 200px; object-fit: cover;">
+                            @else
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" 
+                                     style="height: 200px;">
+                                    <i class="fas fa-graduation-cap fa-3x text-muted"></i>
+                                </div>
+                            @endif
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="badge bg-primary-subtle text-primary">
+                                        {{ $course->level }}
                                     </span>
-                                @elseif($course->instructors->isNotEmpty())
-                                    <img src="{{ $course->instructors->first()->profile_photo_url }}" 
-                                         class="rounded-circle me-2" 
-                                         width="30" 
-                                         alt="{{ $course->instructors->first()->name }}">
-                                    <span class="small text-muted">
-                                        {{ $course->instructors->first()->name }}
+                                    <span class="text-muted small">
+                                        <i class="fas fa-users me-1"></i>
+                                        {{ $course->students_count }} طالب
                                     </span>
-                                @else
-                                    <span class="small text-muted">
-                                        <i class="fas fa-user-circle me-2"></i>
-                                        مدرس غير محدد
+                                </div>
+                                <h3 class="h5 mb-3">{{ $course->title }}</h3>
+                                <p class="text-muted small mb-3">
+                                    {{ Str::limit($course->description, 100) }}
+                                </p>
+                                <div class="d-flex align-items-center mb-3">
+                                    @if($course->instructor)
+                                        <img src="{{ $course->instructor->profile_photo_url }}" 
+                                             class="rounded-circle me-2" 
+                                             width="30" 
+                                             alt="{{ $course->instructor->name }}">
+                                        <span class="small text-muted">
+                                            {{ $course->instructor->name }}
+                                        </span>
+                                    @elseif($course->instructors->isNotEmpty())
+                                        <img src="{{ $course->instructors->first()->profile_photo_url }}" 
+                                             class="rounded-circle me-2" 
+                                             width="30" 
+                                             alt="{{ $course->instructors->first()->name }}">
+                                        <span class="small text-muted">
+                                            {{ $course->instructors->first()->name }}
+                                        </span>
+                                    @else
+                                        <span class="small text-muted">
+                                            <i class="fas fa-user-circle me-2"></i>
+                                            مدرس غير محدد
+                                        </span>
+                                    @endif
+                                </div>
+                                <hr class="my-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="btn btn-outline-primary rounded-pill px-4 disabled">
+                                        عرض التفاصيل
+                                        <i class="fas fa-arrow-left ms-2"></i>
                                     </span>
-                                @endif
+                                    @if($course->price > 0)
+                                        <span class="text-primary fw-bold">
+                                            {{ $course->price }} $
+                                        </span>
+                                    @else
+                                        <span class="badge bg-success">مجاني</span>
+                                    @endif
+                                </div>
                             </div>
-                            <hr class="my-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="{{ route('courses.show', $course) }}" 
-                                   class="btn btn-outline-primary rounded-pill px-4">
-                                    عرض التفاصيل
-                                    <i class="fas fa-arrow-left ms-2"></i>
-                                </a>
-                                @if($course->price > 0)
-                                    <span class="text-primary fw-bold">
-                                        {{ $course->price }} جنيه
-                                    </span>
-                                @else
-                                    <span class="badge bg-success">مجاني</span>
-                                @endif
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             @empty
