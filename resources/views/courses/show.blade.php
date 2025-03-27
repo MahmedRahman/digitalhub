@@ -190,14 +190,14 @@
     </div>
 @endif
                     <!-- Course Overview -->
-                    <div class="card border-0 shadow-sm mb-4">
+                    <!-- <div class="card border-0 shadow-sm mb-4">
                         <div class="card-body">
                             <h3 class="card-title mb-4">حول الدورة التدريبية</h3>
                             <div class="course-description">
                                 {{ $course->description }}
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
     
@@ -231,19 +231,21 @@
                     <!-- Instructor Info -->
                     <div class="card border-0 shadow-sm">
                         <div class="card-body">
-                            <h3 class="card-title mb-4">المدرسون</h3>
+                            <h3 class="card-title mb-4">المدربون</h3>
                             @foreach($course->instructors as $instructor)
-                                <div class="d-flex mb-4">
-                                    <img src="{{ $instructor->profile_photo_url }}" 
-                                         class="rounded-circle me-3" 
-                                         width="64" 
-                                         height="64"
-                                         alt="{{ $instructor->name }}">
-                                    <div>
-                                        <h5 class="mb-1">{{ $instructor->name }}</h5>
-                                        <p class="text-muted mb-2">{{ $instructor->title }}</p>
-                                        <p class="mb-0">{{ $instructor->bio }}</p>
-                                    </div>
+                                <div class="d-flex mb-4 position-relative">
+                                    <a href="{{ route('instructors.show', $instructor) }}" class="text-decoration-none text-dark d-flex stretched-link">
+                                        <img src="{{ $instructor->profile_photo_url }}" 
+                                             class="rounded-circle me-3" 
+                                             width="64" 
+                                             height="64"
+                                             alt="{{ $instructor->name }}">
+                                        <div>
+                                            <h5 class="mb-1">{{ $instructor->name }}</h5>
+                                            <p class="text-muted mb-2">{{ $instructor->title }}</p>
+                                            <p class="mb-0">{{ Str::limit($instructor->bio, 150) }}</p>
+                                        </div>
+                                    </a>
                                 </div>
                             @endforeach
                         </div>
