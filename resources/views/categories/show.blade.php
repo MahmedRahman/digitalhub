@@ -45,11 +45,14 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="card h-100 border-0 shadow-sm hover-card position-relative" style="transition: transform 0.3s ease, box-shadow 0.3s ease;">
                         <a href="{{ route('courses.show', $course) }}" class="text-decoration-none text-dark stretched-link">
-                            @if($course->thumbnail)
-                                <img src="{{ asset('storage/' . $course->thumbnail) }}" 
-                                     class="card-img-top" 
-                                     alt="{{ $course->title }}"
-                                     style="height: 200px; object-fit: cover;">
+                            @if($course->image_url)
+                            <img src="{{ $course->image_url }}" 
+                                     class="card-img-top"
+                                     style="height: 200px; object-fit: cover;"
+                                     alt="{{ $course->title }}">
+
+
+
                             @else
                                 <div class="card-img-top bg-light d-flex align-items-center justify-content-center" 
                                      style="height: 200px;">

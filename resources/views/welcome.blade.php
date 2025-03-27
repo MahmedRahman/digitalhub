@@ -142,21 +142,22 @@
             <div class="row g-4">
                 @foreach($featuredInstructors as $instructor)
                     <div class="col-md-6 col-lg-3">
-                        <div class="card h-100 border-0 shadow-sm text-center">
-                            <div class="card-body">
-                                <img src="{{ $instructor->profile_photo_url ?? 'https://ui-avatars.com/api/?name=Unknown&color=7F9CF5&background=EBF4FF' }}" 
-                                     class="rounded-circle mb-3" 
-                                     width="120" 
-                                     height="120"
-                                     alt="{{ $instructor->name ?? 'Unknown Instructor' }}">
-                                <h5 class="card-title">{{ $instructor->name ?? 'مدرب غير معروف' }}</h5>
-                                <p class="text-primary mb-2">{{ $instructor->title ?? '' }}</p>
-                                <p class="text-muted small mb-3">{{ Str::limit($instructor->bio ?? '', 100) }}</p>
-                                <a href="{{ route('instructors.show', $instructor) }}" 
-                                   class="btn btn-outline-primary">
-                                    عرض الملف الشخصي
-                                </a>
-                            </div>
+                        <div class="card h-100 border-0 shadow-sm text-center position-relative" style="transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                            <a href="{{ route('instructors.show', $instructor) }}" class="text-decoration-none text-dark stretched-link">
+                                <div class="card-body">
+                                    <img src="{{ $instructor->profile_photo_url ?? 'https://ui-avatars.com/api/?name=Unknown&color=7F9CF5&background=EBF4FF' }}" 
+                                         class="rounded-circle mb-3" 
+                                         width="120" 
+                                         height="120"
+                                         alt="{{ $instructor->name ?? 'Unknown Instructor' }}">
+                                    <h5 class="card-title">{{ $instructor->name ?? 'مدرب غير معروف' }}</h5>
+                                    <p class="text-primary mb-2">{{ $instructor->title ?? '' }}</p>
+                                    <p class="text-muted small mb-3">{{ Str::limit($instructor->bio ?? '', 100) }}</p>
+                                    <span class="btn btn-outline-primary disabled">
+                                        عرض الملف الشخصي
+                                    </span>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 @endforeach
