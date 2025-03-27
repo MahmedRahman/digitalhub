@@ -83,13 +83,17 @@ class InstructorController extends Controller
 
     public function show(Instructor $instructor)
     {
+        // Load the instructor's courses with eager loading for better performance
         $instructor->load(['courses' => function ($query) {
             $query->where('status', 'published')
-                  ->with('category')
+                  ->with(['category', 'instructors']) // Include related data
                   ->latest();
         }]);
-
-        return view('instructors.show', compact('instructor'));
+        
+        // Count students across all courses (if needed)
+        $studentsCount = $instructor->courses->sum('students_count');
+        
+        return view('instructors.show', compact('instructor', 'studentsCount'));
     }
 
     public function indexApi()

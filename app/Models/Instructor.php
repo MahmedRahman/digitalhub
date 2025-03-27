@@ -61,9 +61,13 @@ class Instructor extends Model
         return $this->belongsToMany(Specialization::class, 'instructor_specialization');
     }
 
+    /**
+     * Get the courses for the instructor.
+     * This uses the many-to-many relationship through the instructor_course pivot table
+     */
     public function courses()
     {
-        return $this->hasMany(Course::class);
+        return $this->belongsToMany(Course::class);
     }
 
     public function getProfilePhotoUrlAttribute()

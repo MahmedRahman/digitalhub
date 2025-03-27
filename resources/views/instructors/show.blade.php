@@ -102,38 +102,42 @@
                 <!-- Instructor Courses -->
                 <div class="col-lg-8">
                     <h4 class="mb-4">الدورات التدريبية ({{ $instructor->courses->count() }})</h4>
+                    @if($instructor->courses->isEmpty())
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            لا يوجد دورات تدريبية متاحة لهذا المدرب حاليًا
+                        </div>
+                    @endif
                     <div class="row g-4">
                         @foreach($instructor->courses as $course)
                             <div class="col-md-6">
-                                <div class="card h-100 border-0 shadow-sm">
-                                    <img src="{{ $course->image_url }}" 
-                                         class="card-img-top"
-                                         style="height: 200px; object-fit: cover;"
-                                         alt="{{ $course->title }}">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <span class="badge bg-primary">{{ $course->category->name }}</span>
-                                            <span class="text-primary fw-bold">{{ $course->price }} ج.م</span>
+                                <div class="card h-100 border-0 shadow-sm position-relative" style="transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                                    <a href="{{ route('courses.show', $course) }}" class="text-decoration-none text-dark stretched-link">
+                                        <img src="{{ $course->image_url }}" 
+                                             class="card-img-top"
+                                             style="height: 200px; object-fit: cover;"
+                                             alt="{{ $course->title }}">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <span class="badge bg-primary">{{ $course->category->name }}</span>
+                                                <span class="text-primary fw-bold">{{ $course->price }} $</span>
+                                            </div>
+                                            <h5 class="card-title">{{ $course->title }}</h5>
+                                            <p class="card-text text-muted">{{ Str::limit($course->description, 100) }}</p>
                                         </div>
-                                        <h5 class="card-title">
-                                            <a href="{{ route('courses.show', $course) }}" class="text-decoration-none text-dark">
-                                                {{ $course->title }}
-                                            </a>
-                                        </h5>
-                                        <p class="card-text text-muted">{{ Str::limit($course->description, 100) }}</p>
-                                    </div>
-                                    <div class="card-footer bg-white border-top-0">
-                                        <div class="d-flex align-items-center text-muted small">
-                                            <span class="me-3">
-                                                <i class="fas fa-book-reader me-1"></i>
-                                                {{ $course->lectures_count }} درس
-                                            </span>
-                                            <span>
-                                                <i class="fas fa-clock me-1"></i>
-                                                {{ $course->duration_in_weeks }} أسابيع
-                                            </span>
+                                        <div class="card-footer bg-white border-top-0">
+                                            <div class="d-flex align-items-center text-muted small">
+                                                <span class="me-3">
+                                                    <i class="fas fa-book-reader me-1"></i>
+                                                    {{ $course->lectures_count }} درس
+                                                </span>
+                                                <span>
+                                                    <i class="fas fa-clock me-1"></i>
+                                                    {{ $course->duration_in_weeks }} أسابيع
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         @endforeach
