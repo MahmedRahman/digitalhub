@@ -66,65 +66,67 @@
             <h2 class="text-center mb-5">الدورات المميزة</h2>
             <div class="row g-4">
                 @foreach($latestCourses as $course)
+
+                
                     <div class="col-md-6 col-lg-4">
-                        <div class="card h-100 border-0 shadow-sm">
-                            <img src="{{ $course->image_url }}" 
-                                 class="card-img-top"
-                                 style="height: 200px; object-fit: cover;"
-                                 alt="{{ $course->title }}">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="badge bg-primary">{{ $course->category->name }}</span>
-                                    <span class="text-primary fw-bold">{{ $course->price }} ج.م</span>
-                                </div>
-                                <h5 class="card-title">
-                                    <a href="{{ route('courses.show', $course) }}" class="text-decoration-none text-dark">
-                                        {{ $course->title }}
-                                    </a>
-                                </h5>
-                                <p class="card-text text-muted">{{ Str::limit($course->description, 100) }}</p>
-                            </div>
-                            <div class="card-footer bg-white border-top-0">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <div class="d-flex align-items-center">
-                                            @if($course->instructor)
-                                                <img src="{{ $course->instructor->profile_photo_url }}" 
-                                                     class="rounded-circle me-2" 
-                                                     width="30" 
-                                                     alt="{{ $course->instructor->name }}">
-                                                <small class="text-muted">{{ $course->instructor->name }}</small>
-                                            @elseif($course->instructors->isNotEmpty())
-                                                <img src="{{ $course->instructors->first()->profile_photo_url }}" 
-                                                     class="rounded-circle me-2" 
-                                                     width="30" 
-                                                     alt="{{ $course->instructors->first()->name }}">
-                                                <small class="text-muted">{{ $course->instructors->first()->name }}</small>
-                                            @else
-                                                <img src="https://ui-avatars.com/api/?name=Unknown&color=7F9CF5&background=EBF4FF" 
-                                                     class="rounded-circle me-2" 
-                                                     width="30" 
-                                                     alt="Unknown Instructor">
-                                                <small class="text-muted">مدرب غير معروف</small>
-                                            @endif
-                                        </div>
+                        <div class="card h-100 border-0 shadow-sm position-relative" style="transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                            <a href="{{ route('courses.show', $course) }}" class="text-decoration-none text-dark stretched-link">
+                                <img src="{{ $course->image_url }}" 
+                                     class="card-img-top"
+                                     style="height: 200px; object-fit: cover;"
+                                     alt="{{ $course->title }}">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="badge bg-primary">{{ $course->category->name }}</span>
+                                        <span class="text-primary fw-bold">{{ $course->price }} $</span>
                                     </div>
-                                    <div class="col-auto">
-                                        <div class="d-flex align-items-center text-muted small">
-                                            <span class="me-3">
-                                                <i class="fas fa-book-reader me-1"></i>
-                                                {{ $course->lectures_count }} درس
-                                            </span>
-                                            <span>
-                                                <i class="fas fa-clock me-1"></i>
-                                                {{ $course->duration_in_weeks }} أسابيع
-                                            </span>
+                                    <h5 class="card-title">{{ $course->title }}</h5>
+                                    <p class="card-text text-muted">{{ Str::limit($course->description, 100) }}</p>
+                                </div>
+                                <div class="card-footer bg-white border-top-0">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            <div class="d-flex align-items-center">
+                                                @if($course->instructor)
+                                                    <img src="{{ $course->instructor->profile_photo_url }}" 
+                                                         class="rounded-circle me-2" 
+                                                         width="30" 
+                                                         alt="{{ $course->instructor->name }}">
+                                                    <small class="text-muted">{{ $course->instructor->name }}</small>
+                                                @elseif($course->instructors->isNotEmpty())
+                                                    <img src="{{ $course->instructors->first()->profile_photo_url }}" 
+                                                         class="rounded-circle me-2" 
+                                                         width="30" 
+                                                         alt="{{ $course->instructors->first()->name }}">
+                                                    <small class="text-muted">{{ $course->instructors->first()->name }}</small>
+                                                @else
+                                                    <img src="https://ui-avatars.com/api/?name=Unknown&color=7F9CF5&background=EBF4FF" 
+                                                         class="rounded-circle me-2" 
+                                                         width="30" 
+                                                         alt="Unknown Instructor">
+                                                    <small class="text-muted">مدرب غير معروف</small>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="d-flex align-items-center text-muted small">
+                                                <span class="me-3">
+                                                    <i class="fas fa-book-reader me-1"></i>
+                                                    {{ $course->lectures_count }} درس
+                                                </span>
+                                                <span>
+                                                    <i class="fas fa-clock me-1"></i>
+                                                    {{ $course->duration_in_weeks }} أسابيع
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
+
+
                 @endforeach
             </div>
             <div class="text-center mt-5">

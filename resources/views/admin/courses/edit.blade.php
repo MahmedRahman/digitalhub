@@ -87,23 +87,27 @@
 
                         <div class="mb-4">
                             <label class="form-label fw-bold">متطلبات الدورة</label>
-                            <textarea class="form-control @error('requirements') is-invalid @enderror" 
-                                      name="requirements" 
-                                      rows="4"
-                                      placeholder="ما هي المتطلبات السابقة للدورة؟">{{ old('requirements', $course->requirements) }}</textarea>
+                            <div class="border rounded p-2 mb-2">
+                                <textarea id="requirements_editor" class="form-control @error('requirements') is-invalid @enderror" 
+                                          name="requirements" 
+                                          rows="8"
+                                          placeholder="ما هي المتطلبات السابقة للدورة؟">{{ old('requirements', $course->requirements) }}</textarea>
+                            </div>
                             @error('requirements')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="mb-0">
                             <label class="form-label fw-bold">ماذا سيتعلم الطلاب؟</label>
-                            <textarea class="form-control @error('what_you_will_learn') is-invalid @enderror" 
-                                      name="what_you_will_learn" 
-                                      rows="4"
-                                      placeholder="اكتب النقاط الرئيسية التي سيتعلمها الطلاب">{{ old('what_you_will_learn', $course->what_you_will_learn) }}</textarea>
+                            <div class="border rounded p-2 mb-2">
+                                <textarea id="what_you_will_learn_editor" class="form-control @error('what_you_will_learn') is-invalid @enderror" 
+                                          name="what_you_will_learn" 
+                                          rows="8"
+                                          placeholder="اكتب النقاط الرئيسية التي سيتعلمها الطلاب">{{ old('what_you_will_learn', $course->what_you_will_learn) }}</textarea>
+                            </div>
                             @error('what_you_will_learn')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
@@ -289,7 +293,6 @@
         </form>
     </div>
 
-    @push('styles')
     <style>
         .drop-zone {
             position: relative;
@@ -302,9 +305,14 @@
             background-color: #f8f9fa !important;
         }
     </style>
-    @endpush
 
-    @push('scripts')
+    <!-- TinyMCE CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tinymce@6.4.2/skins/ui/oxide/skin.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tinymce@6.4.2/skins/ui/oxide/content.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tinymce@6.4.2/skins/content/default/content.min.css">
+
+    <!-- TinyMCE Script -->
+    <script src="https://cdn.jsdelivr.net/npm/tinymce@6.4.2/tinymce.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const dropZones = document.querySelectorAll('.drop-zone');
@@ -362,7 +370,40 @@
                     this.style.backgroundColor = '#f8f9fa';
                 });
             });
+            
+            // Initialize TinyMCE for both editors
+            const editorConfig = {
+                directionality: 'rtl',
+                language: 'ar',
+                plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table paste help wordcount',
+                toolbar: 'undo redo | styleselect | fontselect fontsizeselect | forecolor backcolor | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | removeformat code fullscreen help',
+                menubar: 'file edit view insert format tools table help',
+                content_style: 'body { font-family: Arial, sans-serif; font-size: 14px }',
+                font_formats: 'Arial=arial,helvetica,sans-serif; Cairo=cairo,sans-serif; Tajawal=tajawal,sans-serif; Courier New=courier new,courier,monospace; Tahoma=tahoma,sans-serif',
+                fontsize_formats: '8pt 10pt 12pt 14pt 16pt 18pt 24pt 36pt 48pt',
+                height: 300,
+                promotion: false,
+                branding: false,
+                extended_valid_elements: 'span[style|class|align]',
+                valid_children: '+body[style]',
+                setup: function(editor) {
+                    editor.on('change', function() {
+                        editor.save();
+                    });
+                }
+            };
+            
+            // Initialize TinyMCE for the what_you_will_learn field
+            tinymce.init({
+                ...editorConfig,
+                selector: '#what_you_will_learn_editor',
+            });
+            
+            // Initialize TinyMCE for the requirements field
+            tinymce.init({
+                ...editorConfig,
+                selector: '#requirements_editor',
+            });
         });
     </script>
-    @endpush
 </x-app-layout>

@@ -52,6 +52,45 @@
             padding: 4rem 0;
             margin-top: 4rem;
         }
+        
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            left: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        .whatsapp-float:hover {
+            background-color: #128C7E;
+            transform: scale(1.1);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
     </style>
 
     @stack('styles')
@@ -185,14 +224,16 @@
                 <div class="col-md-3">
                     <h5 class="mb-3">تواصل معنا</h5>
                     <div class="d-flex gap-3 mb-3">
-                        <a href="#" class="text-muted"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-muted"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-muted"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-muted"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.facebook.com/digitalhubteam/" class="text-muted"><i class="fab fa-facebook-f"></i></a>
+                        <!-- <a href="https://twitter.com/DigitalHubEgypt" class="text-muted"><i class="fab fa-twitter"></i></a> -->
+                        <a href="https://www.instagram.com/digitalhubegy/#" class="text-muted"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/digital-hub-egypt/" class="text-muted"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.youtube.com/@Digitalhubegypt" class="text-muted"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@digital_hub_egypt" class="text-muted"><i class="fab fa-tiktok"></i></a>
                     </div>
                     <p class="text-muted mb-0">
-                        البريد الإلكتروني: info@digitalhub.eg<br>
-                        الهاتف: 01234567890
+                        البريد الإلكتروني: info@digitalhubegypt.com<br>
+                        الهاتف: "01066843185"
                     </p>
                 </div>
             </div>
@@ -202,6 +243,11 @@
             </div>
         </div>
     </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/201066843185" class="whatsapp-float" target="_blank" title="تحدث معنا الآن">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

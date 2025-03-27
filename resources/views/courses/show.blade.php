@@ -1,5 +1,6 @@
 <x-main-layout>
     <!-- Course Header -->
+
     <div class="bg-primary text-white py-5">
         <div class="container">
             @if(session('success'))
@@ -94,7 +95,7 @@
                     <div class="card border-0 shadow-lg">
                         <div class="card-body p-4">
                             <div class="text-center mb-4">
-                                <h3 class="text-primary mb-0">{{ $course->price }} ج.م</h3>
+                                <h3 class="text-primary mb-0">{{ $course->price }} $</h3>
                             </div>
                             <ul class="list-unstyled mb-4">
                                 <li class="mb-3">
@@ -191,7 +192,7 @@
                     <!-- Course Overview -->
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-body">
-                            <h3 class="card-title mb-4">نظرة عامة على الدورة</h3>
+                            <h3 class="card-title mb-4">حول الدورة التدريبية</h3>
                             <div class="course-description">
                                 {{ $course->description }}
                             </div>
@@ -208,20 +209,24 @@
                         <div class="card-body">
                             <h3 class="card-title mb-4">محتوى الدورة</h3>
                             <div class="list-group list-group-flush">
-                                @foreach($course->lessons as $lesson)
-                                    <div class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                        <div>
-                                            <i class="fas fa-play-circle text-primary me-2"></i>
-                                            {{ $lesson->title }}
-                                        </div>
-                                        <span class="text-muted small">
-                                            {{ $lesson->duration }} دقيقة
-                                        </span>
-                                    </div>
-                                @endforeach
+                            {!! $course->what_you_will_learn !!}
+
                             </div>
                         </div>
                     </div>
+
+
+      <!-- Course Lessons -->
+      <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body">
+                            <h3 class="card-title mb-4">متطلبات الدورة</h3>
+                            <div class="list-group list-group-flush">
+                            {!! $course->requirements !!}
+
+                            </div>
+                        </div>
+                    </div>
+
 
                     <!-- Instructor Info -->
                     <div class="card border-0 shadow-sm">
@@ -252,14 +257,28 @@
                         <div class="card-body">
                             <h5 class="card-title mb-3">شارك الدورة</h5>
                             <div class="d-flex gap-2">
-                                <a href="#" class="btn btn-outline-primary flex-grow-1">
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}" 
+                                   target="_blank" 
+                                   class="btn btn-outline-primary flex-grow-1" 
+                                   title="شارك على فيسبوك">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
-                                <a href="#" class="btn btn-outline-info flex-grow-1">
+                                <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($course->title) }}" 
+                                   target="_blank" 
+                                   class="btn btn-outline-info flex-grow-1" 
+                                   title="شارك على تويتر">
                                     <i class="fab fa-twitter"></i>
                                 </a>
-                                <a href="#" class="btn btn-outline-success flex-grow-1">
+                                <a href="https://api.whatsapp.com/send?text={{ urlencode($course->title . ' - ' . request()->url()) }}" 
+                                   target="_blank" 
+                                   class="btn btn-outline-success flex-grow-1" 
+                                   title="شارك على واتساب">
                                     <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="mailto:?subject={{ urlencode($course->title) }}&body={{ urlencode('أدعوك للاطلاع على هذه الدورة: ' . $course->title . ' - ' . request()->url()) }}" 
+                                   class="btn btn-outline-secondary flex-grow-1" 
+                                   title="شارك عبر البريد الإلكتروني">
+                                    <i class="fas fa-envelope"></i>
                                 </a>
                             </div>
                         </div>
@@ -288,7 +307,7 @@
                                                 </h6>
                                                 <p class="card-text">
                                                     <small class="text-muted">
-                                                        {{ $relatedCourse->price }} ج.م
+                                                        {{ $relatedCourse->price }} $
                                                     </small>
                                                 </p>
                                             </div>
