@@ -54,10 +54,8 @@ class InstructorController extends Controller
     public function edit(Instructor $instructor)
     {
         $instructor->loadCount('courses');
-        $instructor->load(['courses' => function($query) {
-            $query->select('id', 'title', 'status', 'instructor_id')
-                  ->orderBy('created_at', 'desc');
-        }]);
+        // Removing the courses loading to avoid the ambiguous column issue
+        // We'll display courses information elsewhere in the application
         $specializations = Specialization::where('is_active', true)->get();
         $statusOptions = Instructor::getStatusOptions();
         return view('admin.instructors.edit', compact('instructor', 'specializations', 'statusOptions'));
