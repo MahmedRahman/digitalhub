@@ -68,11 +68,6 @@
                 <hr class="my-4">
 
                 <div class="text-center">
-                    <div class="mb-3">
-                        <div class="qr-code d-inline-block">
-                            {!! QrCode::size(100)->generate(route('admin.live-course-rounds.students.payments.verify', $payment->receipt_number)) !!}
-                        </div>
-                    </div>
                     <p class="text-muted mb-4">
                         هذه الفاتورة صدرت إلكترونياً وتعتبر صالحة بدون توقيع أو ختم
                     </p>
