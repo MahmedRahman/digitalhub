@@ -3,7 +3,7 @@
         <div class="card receipt-card">
             <div class="card-body">
                 <div class="text-center mb-4">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="mb-3" style="max-width: 150px;">
+                    <h1 class="text-primary mb-3" style="font-weight: bold;">Digital Hub Egypt</h1>
                     <h2 class="mb-0">إيصال دفع</h2>
                     <div class="text-muted mt-2">رقم الفاتورة: {{ $payment->receipt_number }}</div>
                 </div>
