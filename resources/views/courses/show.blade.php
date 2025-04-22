@@ -339,6 +339,19 @@
                             @endforeach
                         </div>
                     </div>
+
+                    <!-- Payment -->
+                    <div class="card border-0 shadow-sm mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">طرق الدفع</h5>
+                            <p class="text-muted mb-3">يمكنك الدفع بعدة طرق مختلفة بما في ذلك فودافون كاش، انستا باي، والتحويل البنكي</p>
+                            <div class="d-grid">
+                                <a href="{{ route('payment') }}" class="btn btn-primary">
+                                    <i class="fas fa-credit-card me-2"></i>عرض طرق الدفع
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
