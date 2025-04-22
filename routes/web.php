@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\RoundEnrollmentController;
 use App\Http\Controllers\Admin\StudentPaymentController;
 use App\Http\Controllers\AiMessageController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PublicInvoiceController;
 use App\Http\Controllers\Admin\InvoicePaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +48,8 @@ Route::post('/contact', [PageController::class, 'sendContact'])->name('contact.s
 
 Route::get('/payment', [PageController::class, 'payment'])->name('payment');
 
+// مسار عام لإرسال الفواتير (متاح للمستخدمين غير المسجلين)
+Route::post('/invoices', [PublicInvoiceController::class, 'store']);
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -92,8 +95,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ]);
 
 
-        // Invoice Payment Routes
-        Route::resource('admin/invoices', InvoicePaymentController::class);
+        // Invoice Payment Routes (لوحة التحكم)
+        Route::resource('invoices', InvoicePaymentController::class)->except(['store']);
 
 
 
