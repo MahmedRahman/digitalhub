@@ -330,6 +330,15 @@
                     </a>
                 </li>
 
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.invoices.index') }}" 
+                       class="nav-link {{ request()->routeIs('admin.invoices.*') ? 'active' : '' }}">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>فواتيري</span>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a href="{{ route('user.my-enrollments') }}" 
                        class="nav-link {{ request()->routeIs('user.my-enrollments') ? 'active' : '' }}">

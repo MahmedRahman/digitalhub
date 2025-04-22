@@ -24,6 +24,8 @@ use App\Http\Controllers\Admin\LiveCourseRoundStudentController;
 use App\Http\Controllers\Admin\RoundEnrollmentController;
 use App\Http\Controllers\Admin\StudentPaymentController;
 use App\Http\Controllers\AiMessageController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\Admin\InvoicePaymentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -42,6 +44,10 @@ Route::get('/terms', [PageController::class, 'terms'])->name('terms');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [PageController::class, 'sendContact'])->name('contact.send');
+
+Route::get('/payment', [PageController::class, 'payment'])->name('payment');
+
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
@@ -85,6 +91,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'users' => AdminUserController::class
         ]);
 
+
+        // Invoice Payment Routes
+        Route::resource('admin/invoices', InvoicePaymentController::class);
+
+
+
+ 
         // Lessons Management
         Route::resource('lessons', AdminLessonController::class);
 

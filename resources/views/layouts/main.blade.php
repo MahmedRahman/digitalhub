@@ -124,6 +124,13 @@
                             <i class="fas fa-book me-1"></i>الدورات
                         </a>
                     </li>
+
+                    
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('payment') ? 'active' : '' }}" href="{{ route('payment') }}">
+                            <i class="fas fa-credit-card me-1"></i>طرق الدفع
+                        </a>
+                    </li>
                     <!-- <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('instructors.*') ? 'active' : '' }}" href="{{ route('instructors.index') }}">
                             <i class="fas fa-book me-1"></i>المحاضرين 
