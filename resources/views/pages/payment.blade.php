@@ -200,24 +200,46 @@
                 <div class="col-12">
                     <hr class="my-3">
                 </div>
+                <div class="col-12 py-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-wallet text-primary fs-1 me-3"></i>
+                                <h2 class="mb-0">انستا باي</h2>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-outline-primary">انستا باي</button>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <h5 class="mb-2">digitalhubegypt@instapay</h5>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <button class="btn btn-outline-secondary">نسخ</button>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="col-12">
+                    <hr class="my-3">
+                </div>
                 <div class="col-12 py-3">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-mobile-alt text-primary fs-1 me-3"></i>
-                                <h2 class="mb-0">الدفع عبر الهاتف</h2>
+                                <h2 class="mb-0">فودافون كاش</h2>
                             </div>
                         </div>
                         <div class="col-md-6 pt-3 pt-md-0">
                             <button class="btn btn-outline-primary me-2 mb-2 mb-md-0">فودافون كاش</button>
-                            <button class="btn btn-outline-primary me-2 mb-2 mb-md-0">اورنج كاش</button>
-                            <button class="btn btn-outline-primary mb-2 mb-md-0">اتصالات كاش</button>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-6">
-                            <h2 class="mb-0">01027007899</h2>
+                            <h2 class="mb-0">01066843185</h2>
                         </div>
                         <div class="col-md-6">
                             <button class="btn btn-outline-secondary">نسخ</button>
@@ -234,18 +256,16 @@
                         <div class="col-md-6">
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-university text-primary fs-1 me-3"></i>
-                                <h2 class="mb-0">التحويل البنكي</h2>
+                                <h2 class="mb-0">pay pal</h2>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <button class="btn btn-outline-primary">اسم البنك بنك الإسكندرية</button>
+                            <button class="btn btn-outline-primary">pay pal</button>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-6">
-                            <h5 class="mb-2">اسم الحساب ديجيتال هب</h5>
-                            <h5 class="mb-2">رقم الحساب 202069901001</h5>
-                            <h5 class="mb-0">رمز السويفت ALEXEGCXXXX</h5>          
+                            <h5 class="mb-2">ahmedgamal50@gmail.com</h5>
                         </div>
                         <div class="col-md-6 d-flex align-items-center">
                             <button class="btn btn-outline-secondary">نسخ</button>
@@ -261,19 +281,17 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex align-items-center">
-                                <i class="fas fa-wallet text-primary fs-1 me-3"></i>
-                                <h2 class="mb-0">المحفظة الإلكترونية</h2>
+                                <i class="fas fa-university text-primary fs-1 me-3"></i>
+                                <h2 class="mb-0">watson union</h2>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <button class="btn btn-outline-primary">انستا باي</button>
+                            <button class="btn btn-outline-primary">watson union</button>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-6">
-                            <h5 class="mb-2">الإيمل: payments@digitalhub.com</h5>
-                            <h5 class="mb-2">الهاتف: 01027007899</h5>
-                            <h5 class="mb-0">الواتساب: 01027007899</h5>          
+                            <h5 class="mb-2">Ahmed Gamal Eldin Mohamed Hazee</h5>
                         </div>
                         <div class="col-md-6 d-flex align-items-center">
                             <button class="btn btn-outline-secondary">نسخ</button>
