@@ -228,28 +228,59 @@
                     </div>
 
 
-                    <!-- Instructor Info -->
-                    <div class="card border-0 shadow-sm">
+                 
+                </div>
+
+
+
+                <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="card-title mb-0">آراء المتعلمين</h3>
+            <!-- <a href="{{ route('testimonials.show-form', $course->id) }}" class="btn btn-sm btn-primary">
+                <i class="fas fa-comment me-1"></i>شارك برأيك
+            </a> -->
+        </div>
+        
+        @if($testimonials->count() > 0)
+            <div class="testimonials-list">
+                @foreach($testimonials as $testimonial)
+                    <div class="card mb-3 border-0 bg-light">
                         <div class="card-body">
-                            <h3 class="card-title mb-4">المدربون</h3>
-                            @foreach($course->instructors as $instructor)
-                                <div class="d-flex mb-4 position-relative">
-                                    <a href="{{ route('instructors.show', $instructor) }}" class="text-decoration-none text-dark d-flex stretched-link">
-                                        <img src="{{ $instructor->profile_photo_url }}" 
-                                             class="rounded-circle me-3" 
-                                             width="64" 
-                                             height="64"
-                                             alt="{{ $instructor->name }}">
-                                        <div>
-                                            <h5 class="mb-1">{{ $instructor->name }}</h5>
-                                            <p class="text-muted mb-2">{{ $instructor->title }}</p>
-                                            <p class="mb-0">{{ Str::limit($instructor->bio, 150) }}</p>
-                                        </div>
-                                    </a>
+                            <div class="d-flex justify-content-between mb-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-placeholder bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; font-size: 16px;">
+                                        {{ strtoupper(substr($testimonial->client_name, 0, 1)) }}
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0">{{ $testimonial->client_name }}</h6>
+                                    </div>
                                 </div>
-                            @endforeach
+                                <div>
+                                    @for($i = 1; $i <= 5; $i++)
+                                        @if($i <= $testimonial->rating)
+                                            <i class="fas fa-star text-warning"></i>
+                                        @else
+                                            <i class="far fa-star text-muted"></i>
+                                        @endif
+                                    @endfor
+                                </div>
+                            </div>
+                            <p class="mb-0">{{ $testimonial->comment }}</p>
                         </div>
                     </div>
+                @endforeach
+            </div>
+        @else
+            <div class="text-center py-4">
+                <p class="text-muted mb-0">لا توجد آراء حول هذه الدورة حتى الآن. كن أول من يشارك برأيه!</p>
+            </div>
+        @endif
+    </div>
+</div>
+
+
+                 
                 </div>
 
                 <!-- Sidebar -->
@@ -315,6 +346,29 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                       <!-- Instructor Info -->
+                       <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title mb-4">المدربون</h3>
+                            @foreach($course->instructors as $instructor)
+                                <div class="d-flex mb-4 position-relative">
+                                    <a href="{{ route('instructors.show', $instructor) }}" class="text-decoration-none text-dark d-flex stretched-link">
+                                        <img src="{{ $instructor->profile_photo_url }}" 
+                                             class="rounded-circle me-3" 
+                                             width="64" 
+                                             height="64"
+                                             alt="{{ $instructor->name }}">
+                                        <div>
+                                            <h5 class="mb-1">{{ $instructor->name }}</h5>
+                                            <p class="text-muted mb-2">{{ $instructor->title }}</p>
+                                            <p class="mb-0">{{ Str::limit($instructor->bio, 150) }}</p>
+                                        </div>
+                                    </a>
                                 </div>
                             @endforeach
                         </div>

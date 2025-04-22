@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Category;
 use App\Models\CourseEnrollment;
 use Illuminate\Http\Request;
+use App\Models\Testimonial;
 
 class CourseController extends Controller
 {
@@ -62,11 +63,16 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         abort_if($course->status !== 'published', 404);
+
+
+            // Load testimonials for this course
+    $testimonials = Testimonial::active()->forCourse($course->id)->latest()->get();
+
         
         // Eager load relationships
         $course->load(['category', 'instructor', 'instructors', 'lessons']);
         
-        return view('courses.show', compact('course'));
+        return view('courses.show', compact('course', 'testimonials'));
     }
 
     public function enroll(Course $course)

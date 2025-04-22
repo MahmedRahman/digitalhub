@@ -211,4 +211,126 @@
             <a href="{{ route('register') }}" class="btn btn-light btn-lg">سجل الآن</a>
         </div>
     </div>
+
+
+    <div class="py-5 bg-light">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-lg-6 mx-auto text-center">
+                <h2 class="mb-3">آراء المتدربين</h2>
+                <p class="text-muted">ما يقوله المتعلمون عن تجربتهم معنا</p>
+            </div>
+        </div>
+        
+        @if($testimonials->count() > 0)
+            @if($testimonials->count() <= 3)
+                <!-- Display up to 3 items in a regular grid -->
+                <div class="row g-4">
+                    @foreach($testimonials->take(3) as $testimonial)
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body p-4">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-placeholder bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; font-size: 20px;">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="mb-0">{{ $testimonial->client_name }}</h5>
+                                                @if($testimonial->course)
+                                                    <small class="text-muted">{{ $testimonial->course->title }}</small>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            @if($i <= $testimonial->rating)
+                                                <i class="fas fa-star text-warning"></i>
+                                            @else
+                                                <i class="far fa-star text-muted"></i>
+                                            @endif
+                                        @endfor
+                                    </div>
+                                    <p class="card-text">{{ $testimonial->comment }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <!-- Display as a carousel/slider if more than 3 items -->
+                <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @foreach($testimonials->chunk(3) as $key => $chunk)
+                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                <div class="row g-4">
+                                    @foreach($chunk as $testimonial)
+                                        <div class="col-md-6 col-lg-4">
+                                            <div class="card h-100 border-0 shadow-sm">
+                                                <div class="card-body p-4">
+                                                    <div class="d-flex justify-content-between mb-3">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="avatar-placeholder bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px; font-size: 20px;">
+                                                                <i class="fas fa-user"></i>
+                                                            </div>
+                                                            <div>
+                                                                <h5 class="mb-0">{{ $testimonial->client_name }}</h5>
+                                                                @if($testimonial->course)
+                                                                    <small class="text-muted">{{ $testimonial->course->title }}</small>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        @for($i = 1; $i <= 5; $i++)
+                                                            @if($i <= $testimonial->rating)
+                                                                <i class="fas fa-star text-warning"></i>
+                                                            @else
+                                                                <i class="far fa-star text-muted"></i>
+                                                            @endif
+                                                        @endfor
+                                                    </div>
+                                                    <p class="card-text">{{ $testimonial->comment }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                    <div class="carousel-indicators">
+                        @foreach($testimonials->chunk(3) as $key => $chunk)
+                            <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="{{ $key }}" {{ $key == 0 ? 'class=active aria-current=true' : '' }} aria-label="Slide {{ $key + 1 }}"></button>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+            
+            <!-- <div class="text-center mt-5">
+                <a href="{{ route('testimonials.show-form') }}" class="btn btn-primary">
+                    <i class="fas fa-comment me-2"></i>شارك برأيك
+                </a>
+            </div> -->
+        @else
+            <div class="text-center py-5">
+                <p class="text-muted mb-4">لا توجد آراء حتى الآن. كن أول من يشارك برأيه!</p>
+                <a href="{{ route('testimonials.show-form') }}" class="btn btn-primary">
+                    <i class="fas fa-comment me-2"></i>شارك برأيك
+                </a>
+            </div>
+        @endif
+    </div>
+</div>
+
+
 </x-guest-layout>

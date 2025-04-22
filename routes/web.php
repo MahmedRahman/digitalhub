@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\StudentPaymentController;
 use App\Http\Controllers\AiMessageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PublicInvoiceController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\InvoicePaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,12 @@ Route::get('/categories/{category}', [CategoryController::class, 'show'])->name(
 Route::get('/courses/{course}', [CourseController::class, 'show'])->name('courses.show');
 Route::get('/instructors', [InstructorController::class, 'indexPublic'])->name('instructors.index');
 Route::get('/instructors/{instructor}', [InstructorController::class, 'show'])->name('instructors.show');
+
+// Testimonials Routes
+Route::get('/testimonials/home', [TestimonialController::class, 'homeTestimonials'])->name('testimonials.home');
+Route::get('/testimonials/course/{course}', [TestimonialController::class, 'courseTestimonials'])->name('testimonials.course');
+Route::get('/testimonials/submit/{course?}', [TestimonialController::class, 'showSubmitForm'])->name('testimonials.show-form');
+Route::post('/testimonials/submit', [TestimonialController::class, 'submit'])->name('testimonials.submit');
 
 // الصفحات الثابتة
 Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
@@ -73,6 +80,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/my-enrollments', [UserController::class, 'myEnrollments'])->name('my-enrollments');
         Route::get('/profile', [UserController::class, 'profile'])->name('profile');
         Route::get('/settings', [UserController::class, 'settings'])->name('settings');
+        
+        // Submit testimonial (for logged in users)
+        Route::post('/testimonials/submit', [TestimonialController::class, 'submit'])->name('testimonials.submit');
     });
 
     // Admin Routes
@@ -148,6 +158,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // AI Messages Admin Routes
         Route::resource('ai-messages', AiMessageController::class)
             ->only(['index', 'show', 'destroy']);
+            
+        // Testimonials Admin Routes
+        Route::resource('testimonials',  TestimonialController::class);
+        Route::patch('/testimonials/{testimonial}/toggle-status', [Admin\TestimonialController::class, 'toggleStatus'])->name('testimonials.toggle-status');
     });
 });
 

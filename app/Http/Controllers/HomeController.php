@@ -6,7 +6,7 @@ use App\Models\Course;
 use App\Models\Instructor;
 use App\Models\Category;
 use App\Models\HeroSection;
-
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -33,6 +33,11 @@ class HomeController extends Controller
             ->take(8)
             ->get();
 
-        return view('welcome', compact('heroSections', 'latestCourses', 'featuredInstructors', 'categories'));
+
+        // Load testimonials for home page
+        $testimonials = Testimonial::active()->forHome()->latest()->take(6)->get();
+
+
+        return view('welcome', compact('heroSections', 'latestCourses', 'featuredInstructors', 'categories', 'testimonials'));
     }
 }

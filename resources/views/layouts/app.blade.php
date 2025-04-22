@@ -311,6 +311,14 @@
                             <span>طلبات الاشتراك</span>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.testimonials.index') }}" 
+                           class="nav-link {{ request()->routeIs('admin.testimonials.*') ? 'active' : '' }}">
+                            <i class="fas fa-comment"></i>
+                            <span>آراء العملاء</span>
+                        </a>
+                    </li>
                 @endif
 
                 <div class="nav-category">حسابي</div>
