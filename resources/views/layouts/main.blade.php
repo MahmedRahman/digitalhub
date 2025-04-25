@@ -4,19 +4,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    
     <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" as="style">
+    
+    <!-- Optimized Fonts - only load needed weights -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome - load with non-blocking technique -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
+    
     <!-- Bootstrap RTL CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
-
-
-
 
     <style>
         body {
@@ -75,7 +78,6 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            animation: pulse 2s infinite;
         }
         
         .whatsapp-float:hover {
@@ -84,15 +86,22 @@
             box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
         }
         
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+        /* Reduced animation for better performance */
+        @media (prefers-reduced-motion: no-preference) {
+            .whatsapp-float {
+                animation: pulse 2s infinite;
             }
-            70% {
-                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            
+            @keyframes pulse {
+                0% {
+                    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+                }
+                70% {
+                    box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+                }
+                100% {
+                    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+                }
             }
         }
 
@@ -118,15 +127,19 @@
   }
 
 
-  a.telegram-float {
-    padding: unset;
-    position: fixed;
-    /* width: 43px; */
-    /* height: 68px; */
-    bottom: 99px;
-    left: 30px;
-    font-size: 58px;
-}
+        a.telegram-float {
+            padding: unset;
+            position: fixed;
+            bottom: 99px;
+            left: 30px;
+            font-size: 58px;
+            color: #0088cc;
+            transition: all 0.3s ease;
+        }
+        
+        a.telegram-float:hover {
+            transform: scale(1.1);
+        }
     </style>
 
 
@@ -291,9 +304,8 @@
 
 
 
-    <!-- ElevenLabs Convai Widget -->
+    <!-- ElevenLabs Convai Widget - Load after page content -->
     <elevenlabs-convai agent-id="fKnS71KpRFQpi2GVR64B"></elevenlabs-convai>
-    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 
     <!-- Telegram Bot Floating Button -->
     <a href="https://t.me/DigitalHub_2020_bot" class="telegram-float" target="_blank" title="تواصل معنا عبر تليجرام">
@@ -308,8 +320,19 @@
 
 
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts - Load non-critical scripts with defer -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+    
+    <!-- Load ElevenLabs script with defer and after page load -->
+    <script>
+        window.addEventListener('load', function() {
+            const script = document.createElement('script');
+            script.src = 'https://elevenlabs.io/convai-widget/index.js';
+            script.async = true;
+            document.body.appendChild(script);
+        });
+    </script>
+    
     @stack('scripts')
 </body>
 </html>
