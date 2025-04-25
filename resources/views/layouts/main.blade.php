@@ -95,7 +95,40 @@
                 box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
             }
         }
+
+
+
+        elevenlabs-convai {
+    direction: rtl !important;
+    text-align: right !important;
+    font-family: 'Cairo', 'Tajawal', sans-serif; /* خطوط عربية مناسبة */
+  }
+
+  /* تعديل حاوية المحادثة إذا ظهرت في الزاوية */
+  .elevenlabs-widget-container {
+    direction: rtl !important;
+    text-align: right !important;
+  }
+
+  /* لو فيه فقاعة محادثة أو نافذة تظهر */
+  .elevenlabs-chat-window,
+  .elevenlabs-chat-message {
+    direction: rtl !important;
+    text-align: right !important;
+  }
+
+
+  a.telegram-float {
+    padding: unset;
+    position: fixed;
+    /* width: 43px; */
+    /* height: 68px; */
+    bottom: 99px;
+    left: 30px;
+    font-size: 58px;
+}
     </style>
+
 
     @stack('styles')
 </head>
@@ -255,10 +288,25 @@
         </div>
     </footer>
 
+
+
+
+    <!-- ElevenLabs Convai Widget -->
+    <elevenlabs-convai agent-id="fKnS71KpRFQpi2GVR64B"></elevenlabs-convai>
+    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+
+    <!-- Telegram Bot Floating Button -->
+    <a href="https://t.me/DigitalHub_2020_bot" class="telegram-float" target="_blank" title="تواصل معنا عبر تليجرام">
+        <i class="fab fa-telegram"></i>
+    </a>
+
+
     <!-- WhatsApp Floating Button -->
     <a href="https://wa.me/201066843185" class="whatsapp-float" target="_blank" title="تحدث معنا الآن">
         <i class="fab fa-whatsapp"></i>
     </a>
+
+
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
