@@ -445,6 +445,52 @@
                 </form>
             </div>
         </section>
+
+        <!-- Contact Information Section -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="text-center mb-4">
+                            <h2 class="h3 mb-3">تواصل معنا</h2>
+                            <p class="text-muted">للاستفسارات أو المساعدة، يمكنك التواصل معنا عبر:</p>
+                        </div>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                            <i class="fas fa-envelope text-primary fs-4"></i>
+                                        </div>
+                                        <h5 class="card-title">البريد الإلكتروني</h5>
+                                        <p class="card-text">
+                                            <a href="mailto:info@digitalhubegypt.com" class="text-decoration-none text-primary">
+                                                info@digitalhubegypt.com
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                            <i class="fas fa-phone text-primary fs-4"></i>
+                                        </div>
+                                        <h5 class="card-title">الهاتف</h5>
+                                        <p class="card-text">
+                                            <a href="tel:+201066843185" class="text-decoration-none text-primary" dir="ltr">
+                                                01066843185
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         
         <!-- No modal needed here as we're using SweetAlert2 -->
     </div>

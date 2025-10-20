@@ -19,7 +19,7 @@
                                 </tr>
                                 <tr>
                                     <th>المبلغ</th>
-                                    <td>{{ number_format($payment->amount, 2) }} جنيه</td>
+                                    <td>{{ round($payment->amount) }} جنيه</td>
                                 </tr>
                                 <tr>
                                     <th>طريقة الدفع</th>

@@ -68,10 +68,7 @@
                                     </button>
                                 </form>
                             @elseif($enrollment->status === 'approved')
-                                <a href="{{ route('courses.learn', $course) }}" class="btn btn-success btn-lg">
-                                    <i class="fas fa-play-circle me-2"></i>
-                                    متابعة التعلم
-                                </a>
+                                <!-- متابعة التعلم button hidden -->
                             @elseif($enrollment->status === 'pending')
                                 <button class="btn btn-warning btn-lg" disabled>
                                     <i class="fas fa-clock me-2"></i>
@@ -89,13 +86,21 @@
                                 سجل دخول للتسجيل في الدورة
                             </a>
                         @endauth
+                        
+                        <!-- WhatsApp Registration Button -->
+                        <x-whatsapp-button 
+                            :course-title="$course->title" 
+                            :price="$course->price" 
+                            button-text="إكمال التسجيل عبر الواتساب"
+                            button-class="btn btn-success"
+                            button-size="lg" />
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="card border-0 shadow-lg">
                         <div class="card-body p-4">
                             <div class="text-center mb-4">
-                                <h3 class="text-primary mb-0">{{ $course->price }} $</h3>
+                                <h3 class="text-primary mb-0">{{ round($course->price) }} ج.م</h3>
                             </div>
                             <ul class="list-unstyled mb-4">
                                 <li class="mb-3">
@@ -129,10 +134,7 @@
                                         </button>
                                     </form>
                                 @elseif($enrollment->status === 'approved')
-                                    <a href="{{ route('courses.learn', $course) }}" class="btn btn-success btn-lg w-100">
-                                        <i class="fas fa-play-circle me-2"></i>
-                                        متابعة التعلم
-                                    </a>
+                                    <!-- متابعة التعلم button hidden -->
                                 @elseif($enrollment->status === 'pending')
                                     <button class="btn btn-warning btn-lg w-100" disabled>
                                         <i class="fas fa-clock me-2"></i>
@@ -150,6 +152,20 @@
                                     سجل دخول للاشتراك
                                 </a>
                             @endauth
+                            
+                            <!-- WhatsApp Registration Button -->
+                            <div class="mt-3">
+                                <x-whatsapp-button 
+                                    :course-title="$course->title" 
+                                    :price="$course->price" 
+                                    button-text="إكمال التسجيل عبر الواتساب"
+                                    button-class="btn btn-success w-100"
+                                    button-size="lg" />
+                                <p class="text-muted small mt-2 text-center">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    يمكنك إكمال عملية التسجيل والدفع عبر الواتساب
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -306,7 +322,7 @@
                                                 </h6>
                                                 <p class="card-text">
                                                     <small class="text-muted">
-                                                        {{ $relatedCourse->price }} $
+                                                        {{ round($relatedCourse->price) }} ج.م
                                                     </small>
                                                 </p>
                                             </div>

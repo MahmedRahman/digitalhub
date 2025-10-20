@@ -56,7 +56,7 @@
                             </div>
                         </section>
 
-                        <section>
+                        <section class="mb-5">
                             <h2 class="h4 mb-3">فريقنا</h2>
                             <p>يضم فريقنا نخبة من:</p>
                             <ul>
@@ -65,6 +65,38 @@
                                 <li>المطورين والمصممين المحترفين</li>
                                 <li>خبراء المحتوى التعليمي</li>
                             </ul>
+                        </section>
+
+                        <section>
+                            <h2 class="h4 mb-3">تواصل معنا</h2>
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="p-4 bg-light rounded">
+                                        <h3 class="h5 mb-3">
+                                            <i class="fas fa-envelope text-primary me-2"></i>
+                                            البريد الإلكتروني
+                                        </h3>
+                                        <p class="mb-0">
+                                            <a href="mailto:info@digitalhubegypt.com" class="text-decoration-none text-primary">
+                                                info@digitalhubegypt.com
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-4 bg-light rounded">
+                                        <h3 class="h5 mb-3">
+                                            <i class="fas fa-phone text-primary me-2"></i>
+                                            الهاتف
+                                        </h3>
+                                        <p class="mb-0">
+                                            <a href="tel:+201066843185" class="text-decoration-none text-primary" dir="ltr">
+                                                01066843185
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </section>
                     </div>
                 </div>

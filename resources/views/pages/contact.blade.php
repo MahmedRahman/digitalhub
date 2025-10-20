@@ -19,31 +19,40 @@
                                 <div class="mb-4">
                                     <h3 class="h6 mb-2">البريد الإلكتروني</h3>
                                     <p class="mb-0">
-                                        <a href="mailto:info@digitalhub.eg" class="text-decoration-none">info@digitalhub.eg</a>
+                                        <a href="mailto:info@digitalhubegypt.com" class="text-decoration-none text-primary">
+                                            <i class="fas fa-envelope me-2"></i>
+                                            info@digitalhubegypt.com
+                                        </a>
                                     </p>
                                 </div>
 
                                 <div class="mb-4">
                                     <h3 class="h6 mb-2">الهاتف</h3>
                                     <p class="mb-0">
-                                        <a href="tel:+201234567890" class="text-decoration-none" dir="ltr">+20 123 456 7890</a>
+                                        <a href="tel:+201066843185" class="text-decoration-none text-primary" dir="ltr">
+                                            <i class="fas fa-phone me-2"></i>
+                                            01066843185
+                                        </a>
                                     </p>
                                 </div>
 
                                 <div>
                                     <h3 class="h6 mb-2">تابعنا على</h3>
                                     <div class="d-flex gap-2">
-                                        <a href="#" class="btn btn-light">
+                                        <a href="https://www.facebook.com/digitalhubteam/" class="btn btn-light" target="_blank">
                                             <i class="fab fa-facebook-f"></i>
                                         </a>
-                                        <a href="#" class="btn btn-light">
-                                            <i class="fab fa-twitter"></i>
+                                        <a href="https://www.instagram.com/digitalhubegy/#" class="btn btn-light" target="_blank">
+                                            <i class="fab fa-instagram"></i>
                                         </a>
-                                        <a href="#" class="btn btn-light">
+                                        <a href="https://www.linkedin.com/company/digital-hub-egypt/" class="btn btn-light" target="_blank">
                                             <i class="fab fa-linkedin-in"></i>
                                         </a>
-                                        <a href="#" class="btn btn-light">
-                                            <i class="fab fa-instagram"></i>
+                                        <a href="https://www.youtube.com/@Digitalhubegypt" class="btn btn-light" target="_blank">
+                                            <i class="fab fa-youtube"></i>
+                                        </a>
+                                        <a href="https://www.tiktok.com/@digital_hub_egypt" class="btn btn-light" target="_blank">
+                                            <i class="fab fa-tiktok"></i>
                                         </a>
                                     </div>
                                 </div>

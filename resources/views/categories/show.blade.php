@@ -105,11 +105,20 @@
                                     </span>
                                     @if($course->price > 0)
                                         <span class="text-primary fw-bold">
-                                            {{ $course->price }} $
+                                            {{ round($course->price) }} ج.م
                                         </span>
                                     @else
                                         <span class="badge bg-success">مجاني</span>
                                     @endif
+                                </div>
+                                <!-- WhatsApp Button -->
+                                <div class="mt-2 text-center">
+                                    <a href="{{ \App\Helpers\WhatsAppHelper::generateCourseRegistrationUrl($course->title, $course->price) }}" 
+                                       target="_blank" 
+                                       class="btn btn-success btn-sm">
+                                        <i class="fab fa-whatsapp me-1"></i>
+                                        تسجيل عبر الواتساب
+                                    </a>
                                 </div>
                             </div>
                         </a>

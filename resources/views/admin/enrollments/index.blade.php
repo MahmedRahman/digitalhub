@@ -95,7 +95,7 @@
                                                             {{ $enrollment->course->title }}
                                                         </a>
                                                         <span class="text-muted small">
-                                                            <i class="fas fa-tag me-1"></i>{{ $enrollment->course->price }} ج.م
+                                                            <i class="fas fa-tag me-1"></i>{{ round($enrollment->course->price) }} ج.م
                                                         </span>
                                                     </div>
                                                 </td>

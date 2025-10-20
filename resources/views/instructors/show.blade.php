@@ -120,7 +120,7 @@
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <span class="badge bg-primary">{{ $course->category->name }}</span>
-                                                <span class="text-primary fw-bold">{{ $course->price }} $</span>
+                                                <span class="text-primary fw-bold">{{ round($course->price) }} ج.م</span>
                                             </div>
                                             <h5 class="card-title">{{ $course->title }}</h5>
                                             <p class="card-text text-muted">{{ Str::limit($course->description, 100) }}</p>
@@ -135,6 +135,15 @@
                                                     <i class="fas fa-clock me-1"></i>
                                                     {{ $course->duration_in_weeks }} أسابيع
                                                 </span>
+                                            </div>
+                                            <!-- WhatsApp Button -->
+                                            <div class="mt-2 text-center">
+                                                <a href="{{ \App\Helpers\WhatsAppHelper::generateCourseRegistrationUrl($course->title, $course->price) }}" 
+                                                   target="_blank" 
+                                                   class="btn btn-success btn-sm">
+                                                    <i class="fab fa-whatsapp me-1"></i>
+                                                    تسجيل عبر الواتساب
+                                                </a>
                                             </div>
                                         </div>
                                     </a>

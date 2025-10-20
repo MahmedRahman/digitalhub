@@ -31,9 +31,9 @@
                                     <td>{{ $enrollment->user->name }}</td>
                                     <td>{{ $enrollment->round->livecourse->name }}</td>
                                     <td>{{ $enrollment->round->round_name }}</td>
-                                    <td>{{ number_format($enrollment->total_price, 2) }}</td>
-                                    <td>{{ number_format($enrollment->paid_amount, 2) }}</td>
-                                    <td>{{ number_format($enrollment->remaining_amount, 2) }}</td>
+                                    <td>{{ round($enrollment->total_price) }}</td>
+                                    <td>{{ round($enrollment->paid_amount) }}</td>
+                                    <td>{{ round($enrollment->remaining_amount) }}</td>
                                     <td>
                                         <span class="badge bg-{{ $enrollment->payment_status == 'completed' ? 'success' : ($enrollment->payment_status == 'partial' ? 'warning' : 'danger') }}">
                                             {{ $enrollment->payment_status == 'completed' ? 'مكتمل' : ($enrollment->payment_status == 'partial' ? 'جزئي' : 'معلق') }}

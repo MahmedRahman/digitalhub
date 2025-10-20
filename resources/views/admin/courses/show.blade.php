@@ -40,7 +40,7 @@
                                     </span>
                                     <span>
                                         <i class="fas fa-money-bill me-1"></i>
-                                        {{ $course->price }} ريال
+                                        {{ round($course->price) }} ج.م
                                     </span>
                                     <span>
                                         <i class="fas fa-tag me-1"></i>

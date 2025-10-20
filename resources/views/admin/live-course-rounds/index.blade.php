@@ -51,7 +51,7 @@
                                         </div>
                                     </td>
                                     <td>{{ $round->hours_count }} ساعة</td>
-                                    <td>{{ $round->price }} جنيه</td>
+                                    <td>{{ round($round->price) }} جنيه</td>
                                     <td>
                                         <span class="badge bg-info">
                                             {{ $round->students_count ?? 0 }} طالب

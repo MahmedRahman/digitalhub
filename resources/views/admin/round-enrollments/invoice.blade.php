@@ -147,7 +147,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $payment->created_at->format('Y-m-d') }}</td>
-                                        <td>{{ number_format($payment->amount, 2) }} ج.م</td>
+                                        <td>{{ round($payment->amount) }} ج.م</td>
                                         <td>
                                             @switch($payment->payment_method)
                                                 @case('cash')
@@ -180,15 +180,15 @@
                                 <tbody>
                                     <tr>
                                         <th>إجمالي المبلغ</th>
-                                        <td>{{ number_format($enrollment->total_price, 2) }} ج.م</td>
+                                        <td>{{ round($enrollment->total_price) }} ج.م</td>
                                     </tr>
                                     <tr>
                                         <th>المبلغ المدفوع</th>
-                                        <td>{{ number_format($enrollment->paid_amount, 2) }} ج.م</td>
+                                        <td>{{ round($enrollment->paid_amount) }} ج.م</td>
                                     </tr>
                                     <tr>
                                         <th>المبلغ المتبقي</th>
-                                        <td>{{ number_format($enrollment->remaining_amount, 2) }} ج.م</td>
+                                        <td>{{ round($enrollment->remaining_amount) }} ج.م</td>
                                     </tr>
                                 </tbody>
                             </table>

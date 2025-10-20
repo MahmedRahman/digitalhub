@@ -33,15 +33,15 @@
                             </tr>
                             <tr>
                                 <th>السعر الكلي</th>
-                                <td>{{ number_format($enrollment->total_price ?? 0, 2) }}</td>
+                                <td>{{ round($enrollment->total_price ?? 0) }}</td>
                             </tr>
                             <tr>
                                 <th>المبلغ المدفوع</th>
-                                <td>{{ number_format($enrollment->paid_amount ?? 0, 2) }}</td>
+                                <td>{{ round($enrollment->paid_amount ?? 0) }}</td>
                             </tr>
                             <tr>
                                 <th>المبلغ المتبقي</th>
-                                <td>{{ number_format($enrollment->remaining_amount ?? 0, 2) }}</td>
+                                <td>{{ round($enrollment->remaining_amount ?? 0) }}</td>
                             </tr>
                             <tr>
                                 <th>حالة الدفع</th>
@@ -156,7 +156,7 @@
                                         <tr>
                                             <td>{{ $payment->id }}</td>
                                             <td>{{ $payment->created_at->format('Y-m-d H:i') }}</td>
-                                            <td>{{ number_format($payment->amount, 2) }}</td>
+                                            <td>{{ round($payment->amount) }}</td>
                                             <td>
                                                 @switch($payment->payment_method)
                                                     @case('cash')

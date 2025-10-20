@@ -84,7 +84,7 @@
                                             </div>
                                             <div>
                                                 <p class="mb-0 text-muted">سعر الجولة</p>
-                                                <h4 class="mb-0">{{ $round->price }} جنيه</h4>
+                                                <h4 class="mb-0">{{ round($round->price) }} جنيه</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -124,9 +124,9 @@
                                     </td>
                                     <td dir="ltr">{{ $student->email }}</td>
                                     <td dir="ltr">{{ $student->phone }}</td>
-                                    <td>{{ number_format($student->pivot->total_amount, 2) }} جنيه</td>
-                                    <td>{{ number_format($student->pivot->paid_amount, 2) }} جنيه</td>
-                                    <td>{{ number_format($student->pivot->remaining_amount, 2) }} جنيه</td>
+                                    <td>{{ round($student->pivot->total_amount) }} جنيه</td>
+                                    <td>{{ round($student->pivot->paid_amount) }} جنيه</td>
+                                    <td>{{ round($student->pivot->remaining_amount) }} جنيه</td>
                                     <td>
                                         @if($student->pivot->payment_status === 'paid')
                                             <span class="badge bg-success">تم الدفع</span>
@@ -239,7 +239,7 @@
                                 </div>
                                 <div class="alert alert-info mb-3">
                                     <i class="fas fa-calculator me-2"></i>
-                                    المبلغ المتبقي: <strong class="remaining-amount">{{ number_format($student->pivot->remaining_amount, 2) }} جنيه</strong>
+                                    المبلغ المتبقي: <strong class="remaining-amount">{{ round($student->pivot->remaining_amount) }} جنيه</strong>
                                 </div>
                                 <div class="mb-3">
                                     <label for="payment_notes{{ $student->id }}" class="form-label">ملاحظات</label>
@@ -285,7 +285,7 @@
                                             <tr>
                                                 <td>{{ $payment->receipt_number }}</td>
                                                 <td>{{ $payment->created_at->format('Y-m-d') }}</td>
-                                                <td>{{ number_format($payment->amount, 2) }} جنيه</td>
+                                                <td>{{ round($payment->amount) }} جنيه</td>
                                                 <td>{{ $payment->payment_method === 'cash' ? 'نقداً' : 'تحويل بنكي' }}</td>
                                                 <td>{{ $payment->reference_number ?: '-' }}</td>
                                                 <td>{{ $payment->notes ?: '-' }}</td>

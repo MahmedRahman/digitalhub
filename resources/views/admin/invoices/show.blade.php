@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="list-group-item d-flex justify-content-between align-items-center">
                                             <span class="fw-medium">قيمة الفاتورة:</span>
-                                            <span>{{ number_format($invoice->invoicevalue, 2) }} ج.م</span>
+                                            <span>{{ round($invoice->invoicevalue) }} ج.م</span>
                                         </div>
                                         <div class="list-group-item d-flex justify-content-between align-items-center">
                                             <span class="fw-medium">نوع الفاتورة:</span>

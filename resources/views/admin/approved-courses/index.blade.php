@@ -13,7 +13,7 @@
                                 <div class="badge bg-success p-2">
                                     <div class="text-center">
                                         <div class="h6 mb-0">إجمالي الإيرادات</div>
-                                        <div class="h4 mb-0">{{ number_format($totalRevenue, 2) }} ج.م</div>
+                                        <div class="h4 mb-0">{{ round($totalRevenue) }} ج.م</div>
                                     </div>
                                 </div>
                             </div>
@@ -73,14 +73,14 @@
                                                     @endforeach
                                                 </td>
                                                 <td>
-                                                    <span class="badge bg-success">{{ number_format($item->course->price, 2) }} ج.م</span>
+                                                    <span class="badge bg-success">{{ round($item->course->price) }} ج.م</span>
                                                 </td>
                                                 <td>
                                                     <span class="badge bg-primary">{{ $item->total_enrollments }}</span>
                                                 </td>
                                                 <td>
                                                     <div class="fw-bold text-success">
-                                                        {{ number_format($item->total_revenue, 2) }} ج.م
+                                                        {{ round($item->total_revenue) }} ج.م
                                                     </div>
                                                 </td>
                                                 <td>
@@ -104,7 +104,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <h6 class="mb-1">إجمالي الإيرادات</h6>
-                                        <div class="h4 mb-0 text-success">{{ number_format($totalRevenue, 2) }} ج.م</div>
+                                        <div class="h4 mb-0 text-success">{{ round($totalRevenue) }} ج.م</div>
                                     </div>
                                 </div>
                             </div>

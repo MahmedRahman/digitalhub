@@ -1,0 +1,9 @@
+# docker-compose.yml
+services:
+  laravel:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/var/www/html
+      - ./prod.env:/var/www/html/.env  # ← هنا السِر الحقيقي

@@ -1,4 +1,28 @@
 <x-app-layout>
+    <style>
+        .modal {
+            --bs-modal-zindex: 1055;
+        }
+        .modal-dialog {
+            transition: none !important;
+        }
+        .modal-content {
+            border: none;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+        .modal-body {
+            word-wrap: break-word;
+        }
+        .modal-backdrop {
+            z-index: 1050;
+        }
+        .btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+    </style>
     <div class="container">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -31,35 +55,9 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $course->name }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#courseDetails{{ $course->id }}">
+                                        <button type="button" class="btn btn-sm btn-info" onclick="showCourseDetails({{ $course->id }}, '{{ addslashes($course->name) }}', '{{ addslashes($course->description) }}', '{{ addslashes($course->objectives) }}', '{{ $course->video_url }}')">
                                             <i class="fas fa-info-circle"></i> عرض التفاصيل
                                         </button>
-                                        
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="courseDetails{{ $course->id }}" tabindex="-1" aria-labelledby="courseDetailsLabel{{ $course->id }}" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="courseDetailsLabel{{ $course->id }}">تفاصيل الدورة: {{ $course->name }}</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h6 class="fw-bold">وصف الدورة:</h6>
-                                                        <p>{!! nl2br(e($course->description)) !!}</p>
-                                                        
-                                                        <h6 class="fw-bold mt-4">محاور الدورة:</h6>
-                                                        <p>{!! nl2br(e($course->objectives)) !!}</p>
-                                                        
-                                                        @if($course->video_url)
-                                                            <h6 class="fw-bold mt-4">الفيديو التعريفي:</h6>
-                                                            <div class="ratio ratio-16x9 mt-2">
-                                                                <iframe src="{{ $course->video_url }}" allowfullscreen></iframe>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </td>
                                     <td>
                                         <div class="d-flex gap-2">
@@ -104,4 +102,98 @@
             </div>
         </div>
     </div>
+
+    <!-- Single Modal for Course Details -->
+    <div class="modal fade" id="courseDetailsModal" tabindex="-1" aria-labelledby="courseDetailsLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="courseDetailsLabel">تفاصيل الدورة</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                    <h6 class="fw-bold">وصف الدورة:</h6>
+                    <p id="courseDescription"></p>
+                    
+                    <h6 class="fw-bold mt-4">محاور الدورة:</h6>
+                    <p id="courseObjectives"></p>
+                    
+                    <div id="courseVideo" style="display: none;">
+                        <h6 class="fw-bold mt-4">الفيديو التعريفي:</h6>
+                        <div class="ratio ratio-16x9 mt-2">
+                            <iframe id="videoFrame" src="" allowfullscreen style="border: none;"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentModal = null;
+        
+        function showCourseDetails(id, name, description, objectives, videoUrl) {
+            // Hide any existing modal first
+            if (currentModal) {
+                currentModal.hide();
+            }
+            
+            // Clear previous video to prevent conflicts
+            const videoFrame = document.getElementById('videoFrame');
+            videoFrame.src = '';
+            
+            // Update modal title
+            document.getElementById('courseDetailsLabel').textContent = 'تفاصيل الدورة: ' + name;
+            
+            // Update description
+            document.getElementById('courseDescription').innerHTML = description.replace(/\n/g, '<br>');
+            
+            // Update objectives
+            document.getElementById('courseObjectives').innerHTML = objectives.replace(/\n/g, '<br>');
+            
+            // Handle video
+            const videoDiv = document.getElementById('courseVideo');
+            
+            if (videoUrl && videoUrl.trim() !== '') {
+                videoFrame.src = videoUrl;
+                videoDiv.style.display = 'block';
+            } else {
+                videoDiv.style.display = 'none';
+            }
+            
+            // Show modal with proper initialization
+            const modalElement = document.getElementById('courseDetailsModal');
+            currentModal = new bootstrap.Modal(modalElement, {
+                backdrop: 'static',
+                keyboard: true,
+                focus: true
+            });
+            
+            // Use setTimeout to ensure DOM is ready
+            setTimeout(() => {
+                currentModal.show();
+            }, 10);
+        }
+
+        // Clean up video when modal is hidden
+        document.getElementById('courseDetailsModal').addEventListener('hidden.bs.modal', function () {
+            const videoFrame = document.getElementById('videoFrame');
+            videoFrame.src = '';
+            currentModal = null;
+        });
+
+        // Prevent modal from shaking on mouse move
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('courseDetailsModal');
+            if (modal) {
+                modal.addEventListener('show.bs.modal', function() {
+                    document.body.style.overflow = 'hidden';
+                });
+                
+                modal.addEventListener('hidden.bs.modal', function() {
+                    document.body.style.overflow = 'auto';
+                });
+            }
+        });
+    </script>
 </x-app-layout>

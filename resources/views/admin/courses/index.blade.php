@@ -66,7 +66,7 @@
                                         @endforeach
                                     </td>
                                     <td>{{ $course->duration_in_weeks }} أسابيع</td>
-                                    <td>{{ $course->price }} ريال</td>
+                                    <td>{{ round($course->price) }} ج.م</td>
                                     <td>
                                         <span class="badge bg-{{ $course->status === 'published' ? 'success' : 'warning' }}">
                                             {{ $course->status === 'published' ? 'منشور' : 'مسودة' }}

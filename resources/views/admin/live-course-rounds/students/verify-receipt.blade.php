@@ -23,7 +23,7 @@
                         <dd class="col-sm-8">{{ $payment->created_at->format('Y-m-d') }}</dd>
 
                         <dt class="col-sm-4">المبلغ</dt>
-                        <dd class="col-sm-8">{{ number_format($payment->amount, 2) }} جنيه</dd>
+                        <dd class="col-sm-8">{{ round($payment->amount) }} جنيه</dd>
 
                         <dt class="col-sm-4">طريقة الدفع</dt>
                         <dd class="col-sm-8">{{ $payment->payment_method === 'cash' ? 'نقداً' : 'تحويل بنكي' }}</dd>

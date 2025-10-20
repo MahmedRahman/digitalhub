@@ -37,7 +37,7 @@
                                     <td>{{ $invoice->phone }}</td>
                                     <td>{{ $invoice->email }}</td>
                                     <td>{{ $invoice->invoicetime->format('Y-m-d H:i') }}</td>
-                                    <td>{{ number_format($invoice->invoicevalue, 2) }} ج.م</td>
+                                    <td>{{ round($invoice->invoicevalue) }} ج.م</td>
                                     <td>{{ $invoice->invoicetype }}</td>
                                     <td>
                                         <span class="badge rounded-pill 
