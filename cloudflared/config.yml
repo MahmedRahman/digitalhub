@@ -1,0 +1,7 @@
+tunnel: eyJhIjoiNDA3ODgyZGFiMGI1YjAxN2RhYTFkYzZkM2MyYmExZTciLCJ0IjoiZWFlM2MxNWItNDMxYy00M2NmLTkyYTItZDVjMjlhODhiMDBlIiwicyI6IlpHWmhZMkkxTWpZdE1tSXdNaTAwTkRjeUxUa3lOR1V0TWpFM1ptTTRNekZqTldRNSJ9
+credentials-file: /home/nonroot/.cloudflared/TUNNEL-UUID.json
+
+ingress:
+  - hostname: nextcloud.arabi-aiflow.com
+    service: http://laravel:8000
+  - service: http_status:404
