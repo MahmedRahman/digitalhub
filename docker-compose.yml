@@ -6,6 +6,8 @@ services:
     volumes:
       - .:/var/www/html
       - ./prod.env:/var/www/html/.env
+    networks:
+      - laravel-network
 
   cloudflared:
     image: cloudflare/cloudflared:latest
@@ -14,3 +16,9 @@ services:
       - TUNNEL_TOKEN=eyJhIjoiNDA3ODgyZGFiMGI1YjAxN2RhYTFkYzZkM2MyYmExZTciLCJ0IjoiZWFlM2MxNWItNDMxYy00M2NmLTkyYTItZDVjMjlhODhiMDBlIiwicyI6IlpHWmhZMkkxTWpZdE1tSXdNaTAwTkRjeUxUa3lOR1V0TWpFM1ptTTRNekZqTldRNSJ9
     depends_on:
       - laravel
+    networks:
+      - laravel-network
+
+networks:
+  laravel-network:
+    driver: bridge
