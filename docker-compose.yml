@@ -1,4 +1,3 @@
-# docker-compose.yml
 services:
   laravel:
     build: .
@@ -6,11 +5,12 @@ services:
       - "8000:8000"
     volumes:
       - .:/var/www/html
-      - ./prod.env:/var/www/html/.env  # ← هنا السِر الحقيقي
+      - ./prod.env:/var/www/html/.env
+
   cloudflared:
     image: cloudflare/cloudflared:latest
-    command: tunnel --no-autoupdate run
-    volumes:
-      - ./cloudflared/config.yml:/etc/cloudflared/config.yml
+    command: tunnel --no-autoupdate run --token eyJhIjoiNDA3ODgyZGFiMGI1YjAxN2RhYTFkYzZkM2MyYmExZTciLCJ0IjoiZWFlM2MxNWItNDMxYy00M2NmLTkyYTItZDVjMjlhODhiMDBlIiwicyI6IlpHWmhZMkkxTWpZdE1tSXdNaTAwTkRjeUxUa3lOR1V0TWpFM1ptTTRNekZqTldRNSJ9 --url http://laravel:8000
+    environment:
+      - TUNNEL_TOKEN=eyJhIjoiNDA3ODgyZGFiMGI1YjAxN2RhYTFkYzZkM2MyYmExZTciLCJ0IjoiZWFlM2MxNWItNDMxYy00M2NmLTkyYTItZDVjMjlhODhiMDBlIiwicyI6IlpHWmhZMkkxTWpZdE1tSXdNaTAwTkRjeUxUa3lOR1V0TWpFM1ptTTRNekZqTldRNSJ9
     depends_on:
       - laravel
