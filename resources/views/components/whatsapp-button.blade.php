@@ -1,10 +1,15 @@
-@props(['courseTitle', 'price', 'buttonText', 'buttonClass', 'buttonSize', 'whatsappUrl'])
+@props(['courseTitle', 'price', 'buttonText', 'buttonClass', 'buttonSize'])
 
 @php
     // Set default values if not provided
     $buttonText = $buttonText ?? 'تسجيل عبر الواتساب';
     $buttonClass = $buttonClass ?? 'btn btn-success';
     $buttonSize = $buttonSize ?? 'md';
+    
+    // Generate WhatsApp URL if not already set (fallback for class-based components)
+    if (!isset($whatsappUrl) || empty($whatsappUrl)) {
+        $whatsappUrl = \App\Helpers\WhatsAppHelper::generateCourseRegistrationUrl($courseTitle ?? '', $price ?? 0);
+    }
     
     // Add size class to button class
     $sizeClasses = [
