@@ -94,3 +94,292 @@ a:hover {
     border-color: var(--secondary);
     color: var(--white);
 }
+
+/* Typography enhancements for course pages */
+body {
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Faux Arabic Font Support */
+@font-face {
+    font-family: 'Faux Arabic';
+    src: url('/fonts/FauxArabic.woff2') format('woff2'),
+         url('/fonts/FauxArabic.woff') format('woff'),
+         url('/fonts/FauxArabic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Apply Faux Arabic to course page */
+.course-page-wrapper {
+    font-family: 'Faux Arabic', 'IBM Plex Sans Arabic', 'Almarai', 'Cairo', sans-serif !important;
+}
+
+.course-page-wrapper * {
+    font-family: inherit !important;
+}
+
+/* Ensure proper RTL text rendering */
+[dir="rtl"] {
+    text-align: right;
+}
+
+/* Course page specific improvements */
+.course-info-box {
+    transition: all 0.3s ease;
+}
+
+.course-info-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Better spacing for course content */
+.course-content ul,
+.course-content ol {
+    padding-right: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.course-content li {
+    margin-bottom: 0.5rem;
+    line-height: 1.75;
+}
+
+/* Improve readability */
+p {
+    line-height: 1.75;
+    margin-bottom: 1rem;
+}
+
+/* Card improvements */
+.card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Course Hero Image Styles */
+.course-hero-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.course-hero-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0));
+    pointer-events: none;
+}
+
+/* Lesson Items Enhanced Styling */
+.lesson-item {
+    position: relative;
+}
+
+.lesson-item::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #0d6efd, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lesson-item:hover::before {
+    opacity: 1;
+}
+
+/* Course Image in Card */
+.card .card-img-top {
+    border-radius: 12px 12px 0 0;
+}
+
+/* Better spacing for course sections */
+.course-content,
+.requirements-content {
+    line-height: 1.8;
+}
+
+.course-content h2,
+.course-content h3,
+.requirements-content h2,
+.requirements-content h3 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.course-content h2:first-child,
+.course-content h3:first-child,
+.requirements-content h2:first-child,
+.requirements-content h3:first-child {
+    margin-top: 0;
+}
+
+/* Landing Page Enhancements */
+.course-hero-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.enrollment-card .card {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.enrollment-card .card-img-top {
+    border-radius: 0;
+}
+
+/* Pulse Animation for Info Icons */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.info-box:hover .info-icon {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+/* Gradient Text Effect */
+.course-price {
+    background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+}
+
+/* Enhanced Lesson Badge */
+.lesson-badge {
+    position: relative;
+    overflow: hidden;
+}
+
+.lesson-badge::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+    transform: rotate(45deg);
+    transition: all 0.5s;
+}
+
+.lesson-hover:hover .lesson-badge::before {
+    animation: shine 0.5s ease-in-out;
+}
+
+@keyframes shine {
+    0% {
+        left: -50%;
+    }
+    100% {
+        left: 150%;
+    }
+}
+
+/* Section Transitions */
+.course-overview-section,
+.course-content-section {
+    position: relative;
+}
+
+.course-overview-section::before,
+.course-content-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(0,0,0,0.1), transparent);
+}
+
+/* Card Hover Effects */
+.card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Placeholder Image Styles */
+.hero-image,
+.card-img-top,
+img[src*="placehold"] {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+}
+
+/* Placeholder Loading State */
+img[src*="placehold"] {
+    transition: opacity 0.3s ease;
+}
+
+img[src*="placehold"]:hover {
+    opacity: 0.9;
+}
+
+/* Fallback for broken images */
+img {
+    background-color: #f8f9fa;
+    background-image: 
+        linear-gradient(45deg, #e9ecef 25%, transparent 25%),
+        linear-gradient(-45deg, #e9ecef 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #e9ecef 75%),
+        linear-gradient(-45deg, transparent 75%, #e9ecef 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .course-hero-section {
+        min-height: 500px;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .info-box {
+        padding: 0.75rem;
+    }
+
+    .enrollment-card {
+        position: relative;
+        top: 0;
+        margin-top: 2rem;
+    }
+}
